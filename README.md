@@ -1,4 +1,4 @@
-"# 2024S-Med-X" 
+# 2024S-Med-X"
 
 ## Project Description
 
