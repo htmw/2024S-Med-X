@@ -116,9 +116,6 @@ Whenever you need to update your colors, you can simply modify the colors.js fil
 
 By following these steps, you'll have a centralized color library that you can easily maintain and use across your React app, ensuring consistency and making it easier to update colors in the future.
 
-User
-the same way i wanna use text library with different text size and colors
-ChatGPT
 Creating a text library with different text sizes and colors in your React app follows a similar approach to the color library. Here's how you can set it up:
 
 Create a Text Library File:
