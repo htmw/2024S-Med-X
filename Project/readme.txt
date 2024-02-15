@@ -185,3 +185,18 @@ Copy code
 <div className="text-heading text-2xl">
   This is a heading.
 </div>
+
+
+
+src
+├── components
+│   ├── NavBar.js
+│   ├── TopBar.js
+│   ├── Footer.js
+│   └── SubMain.js
+├── pages
+│   ├── Home.js
+│   ├── About.js
+│   ├── Services.js
+│   └── Contact.js
+└── App.js
