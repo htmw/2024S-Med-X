@@ -9,7 +9,7 @@ const Topbar = () => {
                 <div className="w-[25px] h-[25px] relative" />
             </div>
         </div>
-        <div className="p-2.5 bg-neutral-900 rounded-[100px] justify-center items-center gap-2.5 flex">
+        <div className="p-2.5 bg-primary rounded-[100px] justify-center items-center gap-2.5 flex">
             <div className="w-[50px] h-[50px] flex-col justify-center items-center gap-2.5 inline-flex">
                 <div className="w-[5px] h-[5px] bg-gradient-to-b from-emerald-200 via-indigo-300 to-slate-600 rounded-full" />
             </div>

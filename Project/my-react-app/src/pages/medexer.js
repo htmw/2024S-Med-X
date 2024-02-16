@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Dashboard = () => {
+const Medexer = () => {
     return (
         <div className="text-green h-full p-3">
-            dashboard
+            Medexer
          </div>
     );
 };
 
-export default Dashboard;
+export default Medexer;
