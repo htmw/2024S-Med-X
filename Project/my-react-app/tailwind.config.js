@@ -8,16 +8,16 @@ module.exports = {
       colors: {
         primary: '#171717',
         secondary: '#1E1E1E',
-        green: '#A6FCAF',
-        white: '#FFFFFF',
-        purple: '#B5A7F7',
-        basewhite: {
+        customGreen: '#A6FCAF',
+        customWhite: '#FFFFFF',
+        customPurple: '#B5A7F7',
+        custumBasewhite: {
           DEFAULT: '#D9D9D9',
           '30': 'rgba(217, 217, 217, 0.3)',
         },
       },
       gradient: {
-        'custom-gradient': 'linear-gradient(45deg, #A6FCAF 0%, #B5A7F7 52%, #585481 100%)',
+        'customGradient': 'linear-gradient(45deg, #A6FCAF 0%, #B5A7F7 52%, #585481 100%)',
       },
     },
   },
