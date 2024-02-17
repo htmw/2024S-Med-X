@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Footer = () => {
+export const Footer = () => {
     return (
         <div className="w-full h-[58px] rounded-[10px] justify-start items-start gap-2.5 inline-flex">
             <div className="grow shrink basis-0 h-[58px] p-2.5 bg-neutral-900 rounded-[10px] justify-center items-center gap-2.5 flex">
