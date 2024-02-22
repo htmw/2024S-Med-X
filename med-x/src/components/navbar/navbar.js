@@ -7,7 +7,7 @@ import React from 'react';
 const NavBar = () => {
     return (
         <div
-            className="h-full w-fit p-[35px] bg-primary rounded-[20px] flex-col justify-start items-start gap-2.5 inline-flex">
+            className="h-full w-fit p-[35px] bg-primary rounded-tr-[20px] rounded-br-[20px] flex-col justify-start items-start gap-2.5 inline-flex">
             <div className="self-stretch h-full flex-col justify-between items-center flex">
                 <div className="p-[15px] flex-col justify-start items-center gap-2.5 flex">
                     <div
