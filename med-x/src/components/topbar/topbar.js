@@ -10,14 +10,14 @@ const Topbar = () => {
             <div className="grow shrink basis-0 self-stretch p-2.5 flex-col justify-start items-start gap-2.5 inline-flex">
                 <div className="self-stretch grow shrink basis-0 p-5 bg-neutral-900 rounded-[10px] justify-between items-center inline-flex">
                     <div className="text-zinc-300 text-opacity-30 text-base font-normal font-['Inter']">Search</div>
-                    <div className="w-[25px] h-[25px] relative"><img src={Search} />
+                    <div className="w-[25px] h-[25px] relative"><img src={Search} alt=""/>
 
                     </div>
                 </div>
             </div>
             <div className="p-2.5 bg-neutral-900 rounded-[100px] justify-center items-center gap-2.5 flex">
                 <div className="w-[50px] h-[50px] flex-col justify-center items-center gap-2.5 inline-flex">
-                    <img src={Notification} />
+                    <img src={Notification} alt=""/>
                 </div>
             </div>
             <div className="w-[90px] h-[90px] p-2.5 rounded-[10px] justify-start items-center gap-2.5 flex">
