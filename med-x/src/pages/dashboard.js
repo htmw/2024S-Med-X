@@ -5,6 +5,7 @@ export const Dashboard = () => {
 
     <div className="flex-grow h-full">
       {/* <Topbar /> */}
+      Hi
 
     </div>
 
