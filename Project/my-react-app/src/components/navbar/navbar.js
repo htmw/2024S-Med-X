@@ -1,6 +1,7 @@
 import React from 'react';
 import vector from '../img/icons/Vector.png';
 import Logo from '../img/Logo.png'
+import { Link } from 'react-router-dom';
 const Navbar = () => {
     return (
         <div
@@ -20,12 +21,12 @@ const Navbar = () => {
                         <div className="w-[230px] justify-start items-center gap-5 inline-flex">
                             <div className="w-[25px] h-[25px] relative">
                                 <img src={vector} className=''/></div>
-                            <div className="text-white text-base font-normal font-['Inter']">Dashboard</div>
+                            <div className="text-white text-base font-normal font-['Inter']"><Link to="/dashboard">Dashboard</Link></div>
                         </div>
                         <div className="w-[230px] justify-start items-center gap-5 inline-flex">
                         <div className="w-[25px] h-[25px] relative">
                                 <img src={vector} className=''/></div>
-                            <div className="text-white text-base font-normal font-['Inter']">Medexer</div>
+                            <div className="text-white text-base font-normal font-['Inter']"><Link to="/medexer">Medexer</Link></div>
                         </div>
                         <div className="w-[230px] justify-start items-center gap-5 inline-flex">
                         <div className="w-[25px] h-[25px] relative">
