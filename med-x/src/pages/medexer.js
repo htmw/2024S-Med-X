@@ -1,4 +1,4 @@
-import React , {useState} from 'react'
+import React, { useState } from 'react'
 
 const Medexer = () => {
     const [isDraggingOver, setIsDragginOver] = useState(false);
@@ -17,15 +17,42 @@ const Medexer = () => {
         setIsDragginOver(false);
     };
 
-    const handleDrop = (e) => {
+    const handlingDrop = (e) => {
         e.preventDefault();
         setIsDragginOver(false);
-        
+
+        //logic for drag and drop file
+        const droppedFiles = Array.from(e.dataTransfer.files);
+        droppedFiles.forEach((file) => {
+            if(!file.type.startsWith('image/')){
+                console.error('Invalid file type');
+                return;
+            }
+            /*
+                // Handling logic to upload file to a server
+                const fileData = new FormData();
+                fileData.append('file', file);
+    
+                fetch('/upload', {
+                    method: 'POST',
+                    body: fileData,
+                })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error', error));
+                */
+               console.log(file.name);
+
+        });
+
     }
 
-
     return (
-        <div className="text-green h-full p-3 h-full flex-col justify-start items-start gap2.5 inline-flex">
+        <div className={`text-green h-full p-3 h-full flex-col justify-start items-start gap2.5 inline-flex ${isDraggingOver ? 'border-4 border-blue-500' : ''}`}
+            onDragOver={handlingDragOver}
+            onDrop={handlingDrop}
+            onDragLeave={handlingDragLeave}
+        >
             <div className="self-stretch grow shrink basis-0 p-2.5 rounded-[20px] border-2 border-zinc-300 border-opacity-30 flex-col justify-center items-center gap-5 flex">
                 <div className="w-[200px] h-[200px] relative bg-black bg-opacity-0" />
                 <div className="text-zinc-300 text-opacity-30 text-[32px] font-normal font-['Inter']">Drag & Drop to Upload Chest X-ray </div>
