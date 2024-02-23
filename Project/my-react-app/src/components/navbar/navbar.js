@@ -31,16 +31,16 @@ const Navbar = () => {
                         <div className="w-[230px] justify-start items-center gap-5 inline-flex">
                         <div className="w-[25px] h-[25px] relative">
                                 <img src={vector} className=''/></div>
-                            <div className="text-white text-base font-normal font-['Inter']">Report</div>
+                            <div className="text-white text-base font-normal font-['Inter']"><Link to="/report">Report</Link></div>
                         </div>
-                        <div className="w-[230px] justify-start items-center gap-5 inline-flex">
+                        <div className="w-[230px] justify-start items-center gap-5 hidden">
                         <div className="w-[25px] h-[25px] relative">
                                 <img src={vector} className=''/></div>
                             <div className="text-white text-base font-normal font-['Inter']">Connect</div>
                         </div>
                     </div>
                     <div
-                        className="self-stretch h-[155px] flex-col justify-between items-center flex">
+                        className="self-stretch h-[155px] flex-col justify-between items-center hidden">
                         <div className="w-[230px] justify-start items-center gap-5 inline-flex">
                         <div className="w-[25px] h-[25px] relative">
                                 <img src={vector} className=''/></div>
