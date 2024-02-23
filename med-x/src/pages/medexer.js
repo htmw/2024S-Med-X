@@ -1,14 +1,59 @@
-import React from 'react'
+import React , {useState} from 'react'
 
 const Medexer = () => {
+    const [isDraggingOver, setIsDragginOver] = useState(false);
+
+    const handlingFileUpload = () => {
+        const fileInput = document.getElementById('fileInput');
+        fileInput.click();
+    }
+
+    const handlingDragOver = (e) => {
+        e.preventDefault();
+        setIsDragginOver(true);
+    };
+    const handlingDragLeave = (e) => {
+        e.preventDefault();
+        setIsDragginOver(false);
+    };
+
+    const handleDrop = (e) => {
+        e.preventDefault();
+        setIsDragginOver(false);
+        
+    }
+
+
     return (
         <div className="text-green h-full p-3 h-full flex-col justify-start items-start gap2.5 inline-flex">
             <div className="self-stretch grow shrink basis-0 p-2.5 rounded-[20px] border-2 border-zinc-300 border-opacity-30 flex-col justify-center items-center gap-5 flex">
                 <div className="w-[200px] h-[200px] relative bg-black bg-opacity-0" />
                 <div className="text-zinc-300 text-opacity-30 text-[32px] font-normal font-['Inter']">Drag & Drop to Upload Chest X-ray </div>
-                <div className="px-5 py-2.5 bg-white bg-opacity-80 rounded-[10px] justify-start items-start gap-2.5 inline-flex">
+                <input
+                    id="fileInput"
+                    type="file"
+                    accept=".png,.jpeg,.svg,.txt"
+                    style={{ display: 'none' }}
+                    onChange={(e) => {
+                        /*
+                        //Handling logic to upload file to a server
+                        const fileData = new FormData();
+                        fileData.append('file', e.target.files[0]);
+
+                        fetch('/upload', {
+                            method: 'POST',
+                            body: fileData,
+                        })
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.error('Error', error));
+                        */
+
+                    }}
+                />
+                <button className="px-5 py-2.5 bg-white bg-opacity-80 rounded-[10px] justify-start items-start gap-2.5 inline-flex hover:bg-green-600 active:bg-green-700 focus:ring focus:ring-gray-700" onClick={handlingFileUpload}>
                     <div className="text-neutral-900 text-2xl font-normal font-['Inter']">Browse File</div>
-                </div>
+                </button>
                 <div className="text-zinc-300 text-opacity-30 text-base font-normal font-['Inter']">Supported File formats: .png, .jpeg, .svg</div>
             </div>
         </div>
