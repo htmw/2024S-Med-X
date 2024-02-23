@@ -1,20 +1,22 @@
 import React from 'react'
-import Topbar from '../components/topbar/topbar';
 
 export const Dashboard = () => {
   return (
-   
-    <div className="flex-grow">
-        <Topbar />
+
+    <div className="flex-grow h-full">
+      {/* <Topbar /> */}
+
     </div>
-    
-    
-   /*
-    <div className="text-green h-full p-3">
-    dashboard
- </div>
- */
+
+
+    /*
+     <div className="text-green h-full p-3">
+     dashboard
+  </div>
+  */
   );
 };
 
 export default Dashboard;
+
+

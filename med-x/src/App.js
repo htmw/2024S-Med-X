@@ -14,27 +14,14 @@ function App() {
       <Main />
     </div>
     */
+    <div className="App overflow-y-scroll no-scrollbar">
+    <Router>
+     
     
-      <Router>
-      <div className="App overflow-y-scroll no-scrollbar">
-        <nav>
-          <ul>
-            <li>
-              <Link to="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link to="/medexer">Medexer</Link>
-            </li>
-          </ul>
-        </nav>
-        <Routes> {/* Wrap Routes around your Routes */}
-          <Route path="/dashboard" element={<Dashboard />} /> {/* Use element prop to specify the component */}
-          <Route path="/medexer" element={<Medexer />} /> {/* Use element prop to specify the component */}
-        </Routes>
         <Main />
-      </div>
-    </Router>
+      </Router>
     
+      </div> 
   );
 };
 
