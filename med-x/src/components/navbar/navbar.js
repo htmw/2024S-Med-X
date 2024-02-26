@@ -1,9 +1,11 @@
 
-
 import Vector from '../img/icons/Vector.png';
 import Logo from '../img/Logo.png'
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Dashicon from "../img/icons/dashcube.svg"
+import Medexericon from "../img/icons/medex-w.svg"
+import Reporticon from '../img/icons/report.svg';
 
 const NavBar = () => {
     return (
@@ -22,17 +24,17 @@ const NavBar = () => {
                         className="self-stretch flex-col justify-between items-start flex gap-5">
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] relative">
-                                <img src={Vector} className='' alt="" /></div>
+                                <img src={Dashicon} className='' alt="" /></div>
                             <div className="text-white text-base font-normal font-['Inter']"><Link to="/dashboard">Dashboard</Link></div>
                         </div>
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] relative">
-                                <img src={Vector} className='' alt="" /></div>
+                                <img src={Medexericon} className='' alt="" /></div>
                             <div className="text-white text-base font-normal font-['Inter']"><Link to="/medexer">Medexer</Link></div>
                         </div>
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] relative">
-                                <img src={Vector} className='' alt="" /></div>
+                                <img src={Reporticon} className='' alt="" /></div>
                             <div className="text-white text-base font-normal font-['Inter']"><Link to="/report">Report</Link></div>
                         </div>
 
