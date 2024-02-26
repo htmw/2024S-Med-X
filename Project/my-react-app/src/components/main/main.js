@@ -7,6 +7,7 @@ const Main = () => {
         <div className="h-screen w-screen bg-secondary justify-start items-center inline-flex">
         <Navbar/>
         <Submain/>
+        
     </div>
     );
 };
