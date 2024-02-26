@@ -1,5 +1,9 @@
 import React from 'react';
 import vector from '../img/icons/Vector.png';
+
+import Medexericon from '../img/icons/medex-w.svg';
+import Dashicon from '../img/icons/dashcube.svg';
+import Reporticon from '../img/icons/report.svg';
 import Logo from '../img/Logo.png'
 import { Link } from 'react-router-dom';
 const Navbar = () => {
@@ -14,23 +18,23 @@ const Navbar = () => {
                     </div>
                 </div>
                 <div
-                    className="self-stretch grow shrink basis-0 flex-col justify-start items-center flex ">
+                    className="self-stretch grow shrink basis-0 flex-col justify-start items-center flex p-6 ">
                    
                     <div
                         className="self-stretch flex-col justify-between items-start flex gap-5">
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] relative">
-                                <img src={vector} className=''/></div>
+                                <img src={Dashicon} className=''/></div>
                             <div className="text-white text-base font-normal font-['Inter']"><Link to="/">Dashboard</Link></div>
                         </div>
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                         <div className="w-[20px] h-[20px] relative">
-                                <img src={vector} className=''/></div>
+                                <img src={Medexericon} className=''/></div>
                             <div className="text-white text-base font-normal font-['Inter']"><Link to="/medexer">Medexer</Link></div>
                         </div>
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                         <div className="w-[20px] h-[20px] relative">
-                                <img src={vector} className=''/></div>
+                                <img src={Reporticon} className=''/></div>
                             <div className="text-white text-base font-normal font-['Inter']"><Link to="/report">Report</Link></div>
                         </div>
                     </div>

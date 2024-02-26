@@ -20,7 +20,7 @@ const Medexer = () => {
                     <div className="text-neutral-900 font-normal font-['Inter']">Browse File</div>
                 </div>
                 <div
-                    className="text-zinc-300 text-opacity-30 text-base font-normal font-['Inter']">Supported File formats: .png, .jpeg, .svg</div>
+                    className="text-zinc-300 text-opacity-30 text-base font-normal font-['Inter']">Supported File formats: .png, .jpeg</div>
             </div>
         </div>
     );
