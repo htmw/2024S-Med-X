@@ -12,12 +12,12 @@ const Medexer = () => {
                         <img className="" src={uploadimg}/>
                     </div>
                     <div
-                        className="text-zinc-300 text-opacity-30 text-[32px] font-normal font-['Inter']">Drag & Drop to Upload Chest X-ray
+                        className="text-zinc-300 text-opacity-30 text-lg font-normal font-['Inter']">Drag & Drop to Upload Chest X-ray
                     </div>
                 </div>
                 <div
-                    className="px-5 py-2.5 bg-white bg-opacity-80 rounded-[10px] justify-start items-start gap-2.5 inline-flex">
-                    <div className="text-neutral-900 text-2xl font-normal font-['Inter']">Browse File</div>
+                    className="px-5 py-2.5 bg-white bg-opacity-80 rounded-[5px] justify-start items-start gap-2.5 inline-flex">
+                    <div className="text-neutral-900 font-normal font-['Inter']">Browse File</div>
                 </div>
                 <div
                     className="text-zinc-300 text-opacity-30 text-base font-normal font-['Inter']">Supported File formats: .png, .jpeg, .svg</div>
