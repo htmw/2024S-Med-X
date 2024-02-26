@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Uploadimg from "../components/img/upload.png";
 
 const Medexer = () => {
     const [isDraggingOver, setIsDragginOver] = useState(false);
@@ -24,7 +25,7 @@ const Medexer = () => {
         //logic for drag and drop file
         const droppedFiles = Array.from(e.dataTransfer.files);
         droppedFiles.forEach((file) => {
-            if(!file.type.startsWith('image/')){
+            if (!file.type.startsWith('image/')) {
                 console.error('Invalid file type');
                 return;
             }
@@ -41,7 +42,7 @@ const Medexer = () => {
                 .then(data => console.log(data))
                 .catch(error => console.error('Error', error));
                 */
-               console.log(file.name);
+            console.log(file.name);
 
         });
 
@@ -55,7 +56,9 @@ const Medexer = () => {
         >
             <div className="self-stretch grow shrink basis-0 p-2.5 rounded-[20px] border-2 border-zinc-300 border-opacity-30 flex-col justify-center items-center gap-5 flex">
                 <div className="w-[200px] h-[200px] relative bg-black bg-opacity-0" />
-                <div className="text-zinc-300 text-opacity-30 text-[32px] font-normal font-['Inter']">Drag & Drop to Upload Chest X-ray </div>
+                <img className="" src={Uploadimg} />
+
+                <div className="text-zinc-300 text-opacity-30 text-lg font-normal font-['Inter']">Drag & Drop to Upload Chest X-ray </div>
                 <input
                     id="fileInput"
                     type="file"
@@ -78,8 +81,8 @@ const Medexer = () => {
 
                     }}
                 />
-                <button className="px-5 py-2.5 bg-white bg-opacity-80 rounded-[10px] justify-start items-start gap-2.5 inline-flex hover:bg-green-600 active:bg-green-700 focus:ring focus:ring-gray-700" onClick={handlingFileUpload}>
-                    <div className="text-neutral-900 text-2xl font-normal font-['Inter']">Browse File</div>
+                <button className="px-5 py-2.5 bg-white bg-opacity-80 rounded-[5px] justify-start items-start gap-2.5 inline-flex hover:bg-green-600 active:bg-green-700 focus:ring focus:ring-gray-700" onClick={handlingFileUpload}>
+                    <div className="text-neutral-900 font-normal font-['Inter']">Browse File</div>
                 </button>
                 <div className="text-zinc-300 text-opacity-30 text-base font-normal font-['Inter']">Supported File formats: .png, .jpeg</div>
             </div>
