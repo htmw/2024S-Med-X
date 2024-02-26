@@ -5,18 +5,16 @@ import Topbar from "../topbar/topbar";
 import Dashboard from "../../pages/dashboard";
 import Report from "../../pages/report"
 import Medexer from '../../pages/medexer';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route} from 'react-router-dom';
 
 export const Submain = () => {
     return (
         <div className="h-screen w-full flex flex-col">
             <Topbar />
-            {/*<Dashboard /> */}
-            {/*<Medexer /> */}
             <Routes> {/* Wrap Routes around your Routes */}
-                <Route path="/dashboard" element={<Dashboard />} /> {/* Use element prop to specify the component */}
-                <Route path="/medexer" element={<Medexer />} /> {/* Use element prop to specify the component */}
-                <Route path="/report" element={<Report />} /> {/* Use element prop to specify the component */}
+                <Route path="/dashboard" element={<Dashboard />} /> 
+                <Route path="/medexer" element={<Medexer />} /> 
+                <Route path="/report" element={<Report />} /> 
             </Routes>
             <Footer />
         </div>
