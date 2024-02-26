@@ -21,7 +21,7 @@ const Navbar = () => {
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] relative">
                                 <img src={vector} className=''/></div>
-                            <div className="text-white text-base font-normal font-['Inter']"><Link to="/dashboard">Dashboard</Link></div>
+                            <div className="text-white text-base font-normal font-['Inter']"><Link to="/">Dashboard</Link></div>
                         </div>
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                         <div className="w-[20px] h-[20px] relative">
