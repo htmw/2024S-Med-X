@@ -9,10 +9,10 @@ import { Routes, Route } from "react-router-dom";
 
 const Submain = () => {
     return (
-        <div className="h-full w-full flex flex-col">
+        <div className="h-full w-full flex flex-col ">
             <Topbar/>
              <Routes> 
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/medexer" element={<Medexer />} /> 
                 <Route path="/report" element={<Report />} /> 
             </Routes>

@@ -2,8 +2,8 @@ import React from 'react';
 
 const Report = () => {
     return (
-        <div className=" p-3 h-full flex-col justify-start items-start gap-2.5 inline-flex">
-      
+        <div className="text-white p-3 h-full flex-col justify-center items-center gap-2.5 inline-flex">
+      <p>Report</p>
 </div>
     );
 };
