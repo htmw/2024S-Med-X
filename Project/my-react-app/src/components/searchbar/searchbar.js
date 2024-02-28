@@ -23,7 +23,7 @@ const Searchbar = () => {
                         ref={searchInputRef}
                         type="text"
                         placeholder="Search"
-                        className="text-zinc-300 text-opacity-30 text-base font-normal font-['Inter'] bg-transparent border-none outline-none focus:placeholder:text-primary"
+                        className="text-zinc-300 w-full text-opacity-30 text-base font-normal font-['Inter'] bg-transparent border-none outline-none focus:placeholder:text-primary"
                     />
                     <div className="relative w-[25px] h-[25px]" onClick={handleSearchIconClick}>
                         <img src={SearchIcon} alt="Search" />
