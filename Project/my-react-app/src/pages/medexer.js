@@ -58,7 +58,7 @@ const Medexer = () => {
                         </div>
                     )}
                 </div>
-                <img className="" src={Uploadimg} />
+                <img className="" src={Uploadimg} alt=''/>
 
                 <div className="text-zinc-300 text-opacity-30 text-lg font-normal font-['Inter']">Drag & Drop to Upload Chest X-ray </div>
                 <input
