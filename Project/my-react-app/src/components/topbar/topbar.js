@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import SearchIcon from '../img/icons/search.png';
 import NotificationIcon from '../img/icons/nbell.png';
 import ProfileIcon from '../img/Profile.png';
@@ -6,12 +6,15 @@ import ChevronIcon from '../img/icons/chevron.svg';
 
 const Topbar = () => {
     const searchInputRef = useRef(null);
+    const [showSearchOptions, setShowSearchOptions] = useState(false);
 
     const handleSearchIconClick = () => {
         // Focus on the search input field when the search icon is clicked
         if (searchInputRef.current) {
             searchInputRef.current.focus();
         }
+        // Toggle the search options
+        setShowSearchOptions(!showSearchOptions);
     };
 
     return (
@@ -27,6 +30,11 @@ const Topbar = () => {
                     <div className="relative w-[25px] h-[25px]" onClick={handleSearchIconClick}>
                         <img src={SearchIcon} alt="Search" />
                     </div>
+                    {showSearchOptions && (
+                        <div className="absolute top-[calc(100%+5px)] left-0 w-full bg-white rounded-md shadow-lg">
+                            {/* Render your search options here */}
+                        </div>
+                    )}
                 </div>
             </div>
             <div className="flex justify-center items-center gap-2.5 bg-neutral-900 rounded-[5px] h-full p-2.5">
