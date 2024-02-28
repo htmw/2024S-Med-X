@@ -44,7 +44,7 @@ const Medexer = () => {
     }
 
     return (
-        <div className={`text-green h-full p-3 h-full flex-col justify-start items-start gap2.5 inline-flex ${isDraggingOver ? 'border-4 border-blue-500' : ''}`}
+        <div className={`text-green p-3 h-full flex-col justify-start items-start gap2.5 inline-flex ${isDraggingOver ? 'border-4 border-blue-500' : ''}`}
             onDragOver={handlingDragOver}
             onDrop={handlingDrop}
             onDragLeave={handlingDragLeave}
