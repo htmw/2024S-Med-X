@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProfileIcon from '../img/Profile.png';
 import { FaChevronDown } from "react-icons/fa";
-
+import { Link } from 'react-router-dom';
 const Profile = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -22,9 +22,11 @@ const Profile = () => {
                 <div className="absolute top-full right-2 mt-1  w-48 bg-primary shadow-lg rounded-lg">
                     {/* Dropdown content here */}
                     <ul >
-                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">Option 1</li>
-                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">Option 2</li>
-                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">Option 3</li>
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
+                          <Link >Option 1</Link>
+                            </li>
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">   <Link >Option 2</Link></li>
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">   <Link >Option 3</Link></li>
                     </ul>
                 </div>
             )}
