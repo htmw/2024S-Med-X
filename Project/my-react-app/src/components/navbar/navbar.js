@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Logo from '../img/Logo.png'
 
 import { ReactComponent as Reporticon } from "../img/icons/report.svg";

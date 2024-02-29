@@ -18,7 +18,7 @@ const Searchbar = () => {
     return (
         
             <div className="flex flex-col justify-start items-start gap-2.5 flex-grow flex-shrink flex-basis-0 self-stretch">
-                <div className="inline-flex justify-between items-center p-5 bg-neutral-900 rounded-[5px] h-full w-full">
+                <div className="inline-flex justify-between items-center p-5 bg-neutral-900 rounded-full h-full w-full">
                     <input
                         ref={searchInputRef}
                         type="text"
