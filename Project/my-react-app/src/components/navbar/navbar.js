@@ -1,6 +1,5 @@
 import React from 'react';
-import vector from '../img/icons/Vector.png';
-import {BrowserRouter as Router, Route, Switch, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import Logo from '../img/Logo.png'
 
 import { ReactComponent as Reporticon } from "../img/icons/report.svg";
@@ -17,7 +16,7 @@ const Navbar = () => {
                 className="self-stretch h-full flex-col justify-between items-center flex gap-9">
                 <div className=" flex-col justify-start items-center gap-2.5 flex">
                     <div className="w-[180px] h-[180px] justify-center items-center inline-flex">
-                        <img className="" src={Logo}/>
+                        <img alt="Logo" src={Logo}/>
                     </div>
                 </div>
                 <div
@@ -39,6 +38,8 @@ const Navbar = () => {
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] relative">
                             <Medexericon className='w-[20px] h-[20px]'/></div>
+
+                            
                             <div >
                                 <NavLink to="/medexer" className={(
                                         {isActive}) => isActive
