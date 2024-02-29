@@ -14,10 +14,11 @@ const Dashboard = () => {
 
                     <div
                         className="flex-col justify-center items-start gap-5 flex w-[200px] h-[300px]">
+
                         <img
                             className="rounded-[10px] object-cover w-full h-full"
                             src="https://via.placeholder.com/200x600"
-                            alt="Placeholder"/>
+                            alt="Placeholder" />
                     </div>
                 </div>
                 <div
