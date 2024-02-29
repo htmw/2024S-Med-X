@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import SearchIcon from '../img/icons/search.png';
+//import SearchIcon from '../img/icons/search.png';
+import { FaSearch } from "react-icons/fa";
 
 
 const Searchbar = () => {
@@ -25,9 +26,9 @@ const Searchbar = () => {
                     className="text-zinc-300 w-full text-opacity-30 text-base font-normal font-['Inter'] bg-transparent border-none outline-none  focus:placeholder:text-primary"
                 />
                 <button className="relative w-[25px] h-[25px] rounded-full" onClick={handleSearchIconClick}>
-                    <img src={SearchIcon} alt="Search" />
+                <FaSearch style={{ fontSize: '30px', color: 'gray' }}/> 
                 </button>
-                
+
                 {/*
                 {showSearchOptions && (
                     <div className="absolute top-[calc(100%+5px)] left-0 w-full bg-slate-900 rounded-xl flex-col">
