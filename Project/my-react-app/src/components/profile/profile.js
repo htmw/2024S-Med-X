@@ -1,23 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react';
 import ProfileIcon from '../img/Profile.png';
-//import ChevronIcon from '../img/icons/chevron.svg';
-import { CgProfile } from "react-icons/cg";
 import { FaChevronDown } from "react-icons/fa";
 
 const Profile = () => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsDropdownOpen(!isDropdownOpen);
+    };
+
     return (
-        <div className="flex justify-start items-center gap-2.5 h-full rounded-full bg-primary  p-2.5 ">
-            <div className="flex justify-start items-center gap-2.5 flex-grow flex-shrink flex-basis-0 self-stretch">
-                <div className=" bg-opacity-30 rounded-full shadow-inner overflow-hidden h-full w-[45px]">
-                    {/* <CgProfile className="object-cover w-full h-full bg-blend-overlay bg-primary" style={{color: 'white' }} /> */}
-                <img className="object-cover w-full h-full bg-blend-overlay bg-primary" src={ProfileIcon}></img>
+        <div className="relative h-full">
+            <div className="flex justify-start items-center gap-2.5 h-full rounded-full bg-primary p-2.5 ">
+                <div className="bg-opacity-30 rounded-full shadow-inner overflow-hidden h-full w-[45px]">
+                    <img className="object-cover w-full h-full bg-blend-overlay bg-primary" src={ProfileIcon} alt="profile" />
                 </div>
                 <div />
-                <FaChevronDown className="h-5 w-5" style={{color: 'white' }}/>
-                <div />
+                <FaChevronDown className="h-5 w-5 cursor-pointer" style={{ color: 'white' }} onClick={toggleDropdown} />
             </div>
+            {isDropdownOpen && (
+                <div className="absolute top-full right-2 mt-1  w-48 bg-primary shadow-lg rounded-lg">
+                    {/* Dropdown content here */}
+                    <ul >
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">Option 1</li>
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">Option 2</li>
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">Option 3</li>
+                    </ul>
+                </div>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default Profile
+export default Profile;
