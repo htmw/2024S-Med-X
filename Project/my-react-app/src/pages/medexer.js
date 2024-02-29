@@ -3,7 +3,7 @@ import Uploadimg from "../components/img/upload.png";
 
 const Medexer = () => {
     const [isDraggingOver, setIsDraggingOver] = useState(false);
-    const [previewFile, setPreviewFile] = useState(null);
+    const [previewFile, setPreviewFile] = useState(true);
 
     const handleFileUpload = () => {
         const fileInput = document.getElementById('fileInput');
@@ -47,18 +47,21 @@ const Medexer = () => {
                     ? (
                         <div
                             id="Preview"
-                            className=" p-3 h-full flex-col justify-center items-center gap2.5 inline-flex ">
+                            className=" p-3 h-full flex-col justify-center items-center  inline-flex gap-5">
                             <div
-                                className="flex-col justify-center items-center gap-5 flex w-[200px] h-[300px]">
+                                className="flex-col justify-center items-center flex w-[200px] h-[300px]">
 
                                 <img
                                     src={previewFile.dataURL}
                                     alt="Preview"
                                     className="w-full h-full object-cover bg-white rounded-[10px]"/>
                             </div>
+                            <div className='group  '>
                             <button
-                                className="px-5 py-2.5 bg-white bg-opacity-80 rounded-[5px] justify-start items-start gap-2.5 inline-flex hover:bg-green-600 active:bg-green-700 focus:ring focus:ring-gray-700"
-                                onClick={deletePreviewFile}>Delete File</button>
+                                className="group-hover:bg-slate-700 px-5 py-2.5 bg-white bg-opacity-80 rounded-[5px] justify-start items-start gap-2.5 inline-flex active:bg-green-700 focus:ring focus:ring-gray-700"
+                                onClick={deletePreviewFile}><div className='group-hover:text-white'>Delete File</div></button>
+                                
+                            </div>
                         </div>
                     )
                     : (
