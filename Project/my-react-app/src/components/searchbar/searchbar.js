@@ -1,14 +1,13 @@
 import React, { useRef, useState } from 'react';
-//import SearchIcon from '../img/icons/search.png';
+// import SearchIcon from '../img/icons/search.png';
 import { FaSearch } from "react-icons/fa";
 
-
 const Searchbar = () => {
-
     const searchInputRef = useRef(null);
     const [showSearchOptions, setShowSearchOptions] = useState(false);
 
-    const handleSearchIconClick = () => {
+    const handleSearchIconClick = (event) => {
+        event.preventDefault();
         // Focus on the search input field when the search icon is clicked
         if (searchInputRef.current) {
             searchInputRef.current.focus();
@@ -16,29 +15,24 @@ const Searchbar = () => {
         // Toggle the search options
         setShowSearchOptions(!showSearchOptions);
     };
+
     return (
         <form className="flex flex-col justify-start items-start gap-2.5 flex-grow flex-shrink flex-basis-0 self-stretch">
-            <div className="inline-flex justify-between items-center p-5 bg-neutral-900 rounded-full h-full w-full ">
+            <div className="inline-flex justify-between items-center p-5 bg-neutral-900 rounded-full h-full w-full">
                 <input
                     ref={searchInputRef}
                     type="text"
                     placeholder="Search"
-                    className="text-zinc-300 w-full text-opacity-30 text-base font-normal font-['Inter'] bg-transparent border-none outline-none  focus:placeholder:text-primary"
+                    className="text-customBasewhite-30 w-full text-base font-normal font-['Inter'] bg-transparent border-none outline-none  focus:placeholder:text-primary"
                 />
-                <button className="relative w-[25px] h-[25px] rounded-full" onClick={handleSearchIconClick}>
-                <FaSearch style={{ fontSize: '30px', color: 'gray' }}/> 
+                <button className="relative  rounded-full" onClick={handleSearchIconClick}>
+                <div className='w-25 h-25 text-customBasewhite-30 hover:text-white'>
+    <FaSearch />
+</div>
                 </button>
-
-                {/*
-                {showSearchOptions && (
-                    <div className="absolute top-[calc(100%+5px)] left-0 w-full bg-slate-900 rounded-xl flex-col">
-                    
-                    </div>
-                )}
-                */}
             </div>
         </form>
-    )
-}
+    );
+};
 
 export default Searchbar;
