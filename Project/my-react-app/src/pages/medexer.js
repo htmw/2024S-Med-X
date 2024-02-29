@@ -71,6 +71,7 @@ const Medexer = () => {
                                 Quis tempor aliquip elit ipsum adipisicing.<br />
                                 Quis tempor aliquip elit ipsum adipisicing.<br />
                                 Quis tempor aliquip elit ipsum adipisicing.<br />
+                                Quis tempor aliquip elit ipsum adipisicing.<br />
                             </p>
                         </div>
                         <div className='inline-flex flex-row gap-5'>
