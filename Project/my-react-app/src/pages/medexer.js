@@ -8,7 +8,7 @@ const Medexer = () => {
     const fileInputRef = useRef(null);
 
     const handleFileUpload = () => {
-        fileInputRef.current.click(); 
+        fileInputRef.current.click();
     };
 
     const handleDragOver = (e) => {
@@ -113,6 +113,13 @@ const Medexer = () => {
                             style={{ display: 'none' }}
                             onChange={(e) => {
                                 const file = e.target.files[0];
+                                
+                                // Check if file type is supported
+                                if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
+                                    setErrorMessage('Unsupported file format. Please upload a .png or .jpeg file.');
+                                    return;
+                                }
+
                                 const reader = new FileReader();
                                 reader.onload = (event) => {
                                     setPreviewFile({ name: file.name, type: file.type, size: file.size, dataURL: event.target.result });
