@@ -28,14 +28,7 @@ const Searchbar = () => {
                 <button className="relative w-[25px] h-[25px] rounded-full" onClick={handleSearchIconClick}>
                 <FaSearch style={{ fontSize: '30px', color: 'gray' }}/> 
                 </button>
-
-                {/*
-                {showSearchOptions && (
-                    <div className="absolute top-[calc(100%+5px)] left-0 w-full bg-slate-900 rounded-xl flex-col">
-                    
-                    </div>
-                )}
-                */}
+                
             </div>
         </form>
     )
