@@ -30,6 +30,7 @@ const Searchbar = () => {
     <FaSearch />
 </div>
                 </button>
+                
             </div>
         </form>
     );
