@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react';
 import Uploadimg from "../components/img/upload.png";
 
 const Medexer = () => {
-    const [isDraggingOver, setIsDraggingOver] = useState(null);
-    const [previewFile, setPreviewFile] = useState(null);
-    const [errorMessage, setErrorMessage] = useState('');
+    const [fileData, setFileData] = useState({ previewFile: null, errorMessage: '' });
     const fileInputRef = useRef(null);
+    const [isDraggingOver, setIsDraggingOver] = useState(false);
 
-    const handleFileUpload = () => {
+
+    const openFileDialog = () => {
         fileInputRef.current.click();
     };
 
@@ -28,26 +28,24 @@ const Medexer = () => {
         const droppedFiles = Array.from(e.dataTransfer.files);
         const file = droppedFiles[0]; // Assuming only one file is dropped
 
+        checkFileType(file);
+    };
+
+    const checkFileType = (file) => {
         // Check if file type is supported
         if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-            setErrorMessage('Unsupported file format. Please upload a .png or .jpeg file.');
+            setFileData({ ...fileData, errorMessage: 'Unsupported file format. Please upload a .png or .jpeg file.' });
             return;
         }
         const reader = new FileReader();
         reader.onload = (event) => {
-            setPreviewFile({
-                name: file.name,
-                type: file.type,
-                size: file.size,
-                dataURL: event.target.result
-            });
+            setFileData({ ...fileData, previewFile: { name: file.name, type: file.type, size: file.size, dataURL: event.target.result } });
         };
         reader.readAsDataURL(file);
     };
 
     const deletePreviewFile = () => {
-        setPreviewFile(null);
-        setErrorMessage('');
+        setFileData({ ...fileData, previewFile: null, errorMessage: '' });
     };
 
     const formatBytesToMB = (bytes) => {
@@ -59,21 +57,21 @@ const Medexer = () => {
 
     return (
         <div className='w-full h-full flex flex-col justify-center items-center'>
-            {errorMessage && (
+            {fileData.errorMessage && (
                 <div className="bg-red-500 text-white p-3 mb-3 rounded">
-                    {errorMessage}
-                    <button onClick={() => setErrorMessage('')} className="ml-2 font-semibold">Close</button>
+                    {fileData.errorMessage}
+                    <button onClick={() => setFileData({ ...fileData, errorMessage: '' })} className="ml-2 font-semibold">Close</button>
                 </div>
             )}
-            {previewFile ? (
+            {fileData.previewFile ? (
                 <div className='flex-row inline-flex p-3 text-white gap-5 items-start'>
                     <div id="Preview" className="p-3 h-full flex-col justify-center items-center inline-flex gap-5">
                         <div className="flex-col justify-center items-center flex w-[200px] h-[300px]">
-                            <img src={previewFile.dataURL} alt="Preview" className="w-full h-full object-cover bg-white rounded-[10px]" />
+                            <img src={fileData.previewFile.dataURL} alt="Preview" className="w-full h-full object-cover bg-white rounded-[10px]" />
                         </div>
                         <div className='text-white'>
-                            <p className='italic'>{previewFile.name}</p>
-                            <p className='text-xs italic'>{formatBytesToMB(previewFile.size)}</p>
+                            <p className='italic'>{fileData.previewFile.name}</p>
+                            <p className='text-xs italic'>{formatBytesToMB(fileData.previewFile.size)}</p>
                         </div>
                     </div>
                     <div className='inline-flex flex-col gap-5 items-start justify-around h-full'>
@@ -111,24 +109,10 @@ const Medexer = () => {
                             ref={fileInputRef}
                             type="file"
                             style={{ display: 'none' }}
-                            onChange={(e) => {
-                                const file = e.target.files[0];
-                                
-                                // Check if file type is supported
-                                if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
-                                    setErrorMessage('Unsupported file format. Please upload a .png or .jpeg file.');
-                                    return;
-                                }
-
-                                const reader = new FileReader();
-                                reader.onload = (event) => {
-                                    setPreviewFile({ name: file.name, type: file.type, size: file.size, dataURL: event.target.result });
-                                };
-                                reader.readAsDataURL(file);
-                            }}
+                            onChange={(e) => checkFileType(e.target.files[0])}
                         />
                         <div className='group'>
-                            <button className="group-hover:bg-slate-700 px-5 py-2.5 text-primary bg-white bg-opacity-80 rounded-[5px] justify-start items-start gap-2.5 inline-flex active:bg-green-700 focus:ring focus:ring-gray-700" onClick={handleFileUpload}>
+                            <button className="group-hover:bg-slate-700 px-5 py-2.5 text-primary bg-white bg-opacity-80 rounded-[5px] justify-start items-start gap-2.5 inline-flex active:bg-green-700 focus:ring focus:ring-gray-700" onClick={openFileDialog}>
                                 <div className='group-hover:text-white'>Browse</div>
                             </button>
                         </div>
