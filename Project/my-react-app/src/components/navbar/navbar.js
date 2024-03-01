@@ -9,7 +9,7 @@ import { TbReportMedical } from "react-icons/tb";
 
 const Navbar = () => {
     
-    const [isDashboardActive, setIsDashboardActive] = useState(true);
+    const [isDashboardActive, setIsDashboardActive] = useState(false);
     const [isMedexerActive, setIsMedexerActive] = useState(false);
     const [isReportActive, setIsReportActive] = useState(false);
 
