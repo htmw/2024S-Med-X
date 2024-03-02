@@ -8,15 +8,16 @@ import { TbReportMedical } from "react-icons/tb";
 
 
 const Navbar = () => {
-    
+
     const [isDashboardActive, setIsDashboardActive] = useState(false);
     const [isMedexerActive, setIsMedexerActive] = useState(false);
     const [isReportActive, setIsReportActive] = useState(false);
+    const [isImagesActive, setIsImagesActive] = useState(false);
 
     const activeClassName = 'text-white';
     const normalLink = 'text-customBasewhite-30';
 
-    const iconactive= 'white';
+    const iconactive = 'white';
     const icon = 'rgba(255, 255, 255, 0.3)';
     return (
         <div className="h-full w-fit p-5 bg-primary  flex-col justify-start items-start gap-2.5 inline-flex rounded-r-3xl">
@@ -30,7 +31,7 @@ const Navbar = () => {
                     <div className="self-stretch flex-col justify-between items-start flex gap-5">
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px]">
-                                <MdDashboard className={`${isDashboardActive ? activeClassName : normalLink} w-[20px] h-[20px]`}/>
+                                <MdDashboard className={`${isDashboardActive ? activeClassName : normalLink} w-[20px] h-[20px]`} />
                             </div>
                             <div>
                                 <NavLink
@@ -40,43 +41,64 @@ const Navbar = () => {
                                         setIsDashboardActive(true);
                                         setIsMedexerActive(false);
                                         setIsReportActive(false);
+                                        setIsImagesActive(false)
                                     }}
                                 >Dashboard</NavLink>
                             </div>
                         </div>
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] ">
-                            <Medexericon fill={isMedexerActive ? iconactive : icon}  />
+                                <Medexericon fill={isMedexerActive ? iconactive : icon} />
 
                             </div>
                             <div>
-                                <NavLink 
+                                <NavLink
                                     to="/medexer"
                                     className={isMedexerActive ? activeClassName : normalLink}
                                     onClick={() => {
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(true);
                                         setIsReportActive(false);
+                                        setIsImagesActive(false)
                                     }}
                                 >Medexer</NavLink>
                             </div>
                         </div>
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] relative">
-                                <TbReportMedical className={`${isReportActive ? activeClassName : normalLink} w-[20px] h-[20px]`}/>
+                                <TbReportMedical className={`${isReportActive ? activeClassName : normalLink} w-[20px] h-[20px]`} />
                             </div>
                             <div>
-                                <NavLink 
+                                <NavLink
                                     to="/report"
                                     className={isReportActive ? activeClassName : normalLink}
                                     onClick={() => {
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(false);
                                         setIsReportActive(true);
+                                        setIsImagesActive(false)
                                     }}
                                 >Report</NavLink>
                             </div>
                         </div>
+                        <div className="w-fit justify-start items-center gap-3 inline-flex">
+                            <div className="w-[20px] h-[20px] relative">
+                                <TbReportMedical className={`${isImagesActive ? activeClassName : normalLink} w-[20px] h-[20px]`} />
+                            </div>
+                            <div>
+                                <NavLink
+                                    to="/images"
+                                    className={isImagesActive ? activeClassName : normalLink}
+                                    onClick={() => {
+                                        setIsDashboardActive(false);
+                                        setIsMedexerActive(false);
+                                        setIsReportActive(false);
+                                        setIsImagesActive(true)
+                                    }}
+                                >Images</NavLink>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
