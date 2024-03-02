@@ -49,9 +49,7 @@ const Searchbar = () => {
 
             {
                 activeSearch.length > 0 && (
-                    //absolute top-full right-2 mt-1  w-48 bg-primary shadow-lg rounded-lg
-                    //justify-between items-center p-5 top-20 bg-slate-900 text-white w-full rounded-xl left-1/2 -translate-x-1/2 flex flex-col gap-2
-                    <div className="inline-flex justify-between items-center p-5 bg-primary rounded-[30px] h-full w-full text-white flex-col" >
+                    <div className="inline-flex justify-between items-center p-5 bg-slate-700 rounded-[30px] h-auto w-full text-white flex-col" >
                         {
                             activeSearch.map(s => (
                                 <span>{s}</span>
