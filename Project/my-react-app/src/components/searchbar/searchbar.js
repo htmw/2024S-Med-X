@@ -49,14 +49,15 @@ const Searchbar = () => {
 
             {
                 activeSearch.length > 0 && (
-                    <div className="inline-flex justify-between items-center p-5 bg-slate-700 rounded-[30px] h-auto w-full text-white flex-col" >
+                    //inline-flex justify-between items-center p-5 bg-slate-700 rounded-[30px] h-auto w-full text-white flex-col
+                    <div className="inline-flex justify-between items-center p-5 bg-slate-700 rounded-[30px] h-[300px] w-[300px] text-white flex-col" >
                         {
                             activeSearch.map(s => (
-                                <span>{s}</span>
+                                <span className="text-sm">{s}</span>
 
                             ))
                         }
-                    </div>
+                        </div>
                 )
             }
 
