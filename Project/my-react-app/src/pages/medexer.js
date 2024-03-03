@@ -65,7 +65,10 @@ const Medexer = () => {
         if (fileData.previewFile === null) return;
 
         const imageRef = ref(storage, `images/${fileData.previewFile.name + v4()}`);
-        uploadBytes(imageRef, fileData.previewFile).then((snapshot) => {
+        const metadata = {
+            contentType: fileData.previewFile.type, // Set the content type to the file type
+        };
+        uploadBytes(imageRef, fileData.previewFile, metadata).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
                 setImageList((prev) => [...prev, url]);
             });
