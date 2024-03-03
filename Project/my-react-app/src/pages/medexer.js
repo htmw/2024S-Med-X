@@ -1,10 +1,16 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Uploadimg from "../components/img/upload.png";
+import storage from "../firebase.js";
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 const Medexer = () => {
     const [fileData, setFileData] = useState({ previewFile: null, errorMessage: '' });
     const fileInputRef = useRef(null);
     const [isDraggingOver, setIsDraggingOver] = useState(false);
+    const [imageList, setImageList] = useState([]);
+
+    const imageListRef = ref(storage, "images/");
 
 
     const openFileDialog = () => {
@@ -55,6 +61,30 @@ const Medexer = () => {
         return mbSize.toFixed(2) + ' MB';
     };
 
+    const uploadImage = () => {
+        if (fileData.previewFile === null) return;
+
+        const imageRef = ref(storage, `images/${fileData.previewFile.name + v4()}`);
+        uploadBytes(imageRef, fileData.previewFile).then((snapshot) => {
+            getDownloadURL(snapshot.ref).then((url) => {
+                setImageList((prev) => [...prev, url]);
+            });
+            alert("Image uploaded successfully!");
+        });
+    };
+
+    useEffect(() => {
+        listAll(imageListRef).then((response) => {
+            response.items.forEach((item) => {
+                getDownloadURL(item).then((url) => {
+                    setImageList((prev) => [...prev, url]);
+                });
+            });
+        });
+    }, [imageListRef, setImageList]);
+
+
+
     return (
         <div className='w-full h-full flex flex-col justify-center items-center'>
             {fileData.errorMessage && (
@@ -92,7 +122,7 @@ const Medexer = () => {
                                 </button>
                             </div>
                             <div className='group  '>
-                                <button className="group-hover:bg-slate-700 px-5 py-2.5 text-primary bg-white bg-opacity-80 rounded-[5px] justify-start items-start gap-2.5 inline-flex active:bg-green-700 focus:ring focus:ring-gray-700" >
+                                <button className="group-hover:bg-slate-700 px-5 py-2.5 text-primary bg-white bg-opacity-80 rounded-[5px] justify-start items-start gap-2.5 inline-flex active:bg-green-700 focus:ring focus:ring-gray-700" onClick={uploadImage} >
                                     <div className='group-hover:text-white'>Submit</div>
                                 </button>
                             </div>
@@ -120,6 +150,7 @@ const Medexer = () => {
                     </div>
                 </div>
             )}
+
         </div>
     );
 };
