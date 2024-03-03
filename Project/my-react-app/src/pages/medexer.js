@@ -76,7 +76,7 @@ const Medexer = () => {
         });
     };
 
-    useEffect(() => {
+    /*useEffect(() => {
         listAll(imageListRef).then((response) => {
             response.items.forEach((item) => {
                 getDownloadURL(item).then((url) => {
@@ -84,7 +84,7 @@ const Medexer = () => {
                 });
             });
         });
-    }, [imageListRef, setImageList]);
+    }, [imageListRef, setImageList]);*/
 
 
 

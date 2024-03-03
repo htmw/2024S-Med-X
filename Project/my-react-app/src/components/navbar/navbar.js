@@ -13,6 +13,7 @@ const Navbar = () => {
     const [isMedexerActive, setIsMedexerActive] = useState(false);
     const [isReportActive, setIsReportActive] = useState(false);
     const [isImagesActive, setIsImagesActive] = useState(false);
+    const [isAPItestActive, setIsAPItestActive] = useState(false);
 
     const activeClassName = 'text-white';
     const normalLink = 'text-customBasewhite-30';
@@ -41,7 +42,8 @@ const Navbar = () => {
                                         setIsDashboardActive(true);
                                         setIsMedexerActive(false);
                                         setIsReportActive(false);
-                                        setIsImagesActive(false)
+                                        setIsImagesActive(false);
+                                        setIsAPItestActive(false);
                                     }}
                                 >Dashboard</NavLink>
                             </div>
@@ -59,7 +61,8 @@ const Navbar = () => {
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(true);
                                         setIsReportActive(false);
-                                        setIsImagesActive(false)
+                                        setIsImagesActive(false);
+                                        setIsAPItestActive(false);
                                     }}
                                 >Medexer</NavLink>
                             </div>
@@ -76,7 +79,8 @@ const Navbar = () => {
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(false);
                                         setIsReportActive(true);
-                                        setIsImagesActive(false)
+                                        setIsImagesActive(false);
+                                        setIsAPItestActive(false);
                                     }}
                                 >Report</NavLink>
                             </div>
@@ -93,12 +97,30 @@ const Navbar = () => {
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(false);
                                         setIsReportActive(false);
-                                        setIsImagesActive(true)
+                                        setIsImagesActive(true);
+                                        setIsAPItestActive(false);
                                     }}
                                 >Images</NavLink>
                             </div>
                         </div>
-
+                        <div className="w-fit justify-start items-center gap-3 inline-flex">
+                            <div className="w-[20px] h-[20px] relative">
+                                <TbReportMedical className={`${isAPItestActive ? activeClassName : normalLink} w-[20px] h-[20px]`} />
+                            </div>
+                            <div>
+                                <NavLink
+                                    to="/apitest"
+                                    className={isAPItestActive ? activeClassName : normalLink}
+                                    onClick={() => {
+                                        setIsDashboardActive(false);
+                                        setIsMedexerActive(false);
+                                        setIsReportActive(false);
+                                        setIsImagesActive(false);
+                                        setIsAPItestActive(true);
+                                    }}
+                                >APItest</NavLink>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
