@@ -76,15 +76,15 @@ const Medexer = () => {
         });
     };
 
-    useEffect(() => {
-        listAll(imageListRef).then((response) => {
-            response.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    setImageList((prev) => [...prev, url]);
-                });
-            });
-        });
-    }, [imageListRef, setImageList]);
+    // useEffect(() => {
+    //     listAll(imageListRef).then((response) => {
+    //         response.items.forEach((item) => {
+    //             getDownloadURL(item).then((url) => {
+    //                 setImageList((prev) => [...prev, url]);
+    //             });
+    //         });
+    //     });
+    // }, [imageListRef, setImageList]);
 
 
 
