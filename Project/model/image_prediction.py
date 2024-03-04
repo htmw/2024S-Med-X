@@ -17,92 +17,105 @@ findings = {14: 'No finding', 3: 'Cardiomegaly', 0: 'Aortic enlargement',
             7: 'Lung Opacity', 1: 'Atelectasis', 9: 'Other lesion', 6: 'Infiltration', 10: 'Pleural effusion',
             2: 'Calcification', 4: 'Consolidation', 12: 'Pneumothorax'}
 
-def predict_and_plot(model, image_path):
-    # Load and preprocess the image
+def predict(model, image_path):
+    """Predicts the findings for a chest X-ray image.
+
+    Args:
+        model: The pre-trained Keras model for prediction.
+        image_path: The path to the image file (DICOM or PNG or JPG).
+
+    Returns:
+        The predicted finding as a string.
+    """
+
     try:
-        dicom_data = pydicom.dcmread(image_path)
+        # Check the file extension to determine image format
+        if image_path.lower().endswith(".dicom"):
+            # Load DICOM image using pydicom
+            dicom_data = pydicom.dcmread(image_path)
+            # Preprocess DICOM image as before (code remains unchanged)
 
-        # Check if the transfer syntax UID indicates JPEG 2000 Lossless compression
-        if dicom_data.file_meta.TransferSyntaxUID == pydicom.uid.JPEG2000Lossless:
-            dicom_data.BitsStored = 16
+        elif image_path.lower().endswith(".png"):
+            # Open PNG image using PIL
+            with open(image_path, 'rb') as f:
+                image = Image.open(BytesIO(f.read()))
 
-        # Access pixel data and verify actual bit depth
-        pixel_data = dicom_data.pixel_array
-        actual_bit_depth = pixel_data.dtype.itemsize * 8
+            # Preprocess PNG image:
+            new_width, new_height = 224, 224
+            resized_image = image.resize((new_width, new_height), resample=Image.BICUBIC)
+            if resized_image.mode != 'RGB':
+                resized_image = resized_image.convert('RGB')
+            resized_data = np.array(resized_image) / 255.0
 
-        # Use pydicom's internal scaling if needed
-        if actual_bit_depth != dicom_data.BitsStored:
-            normalized_data = pixel_data * (2**4 - 1) / (2**actual_bit_depth - 1)
+            # Convert to uint8
+            resized_data_uint8 = (resized_data * 255).astype(np.uint8)
+
         else:
-            normalized_data = pixel_data
+            raise ValueError(f"Unsupported image format: {image_path}")
 
-        # Convert normalized_data to uint8 if necessary
-        normalized_data_uint8 = (normalized_data * 255).astype(np.uint8)
-
-        # Create PIL Image from normalized_data_uint8
-        image_uint8 = Image.fromarray(normalized_data_uint8)
-
-        # Resize the image while preserving data type
-        new_width, new_height = 224, 224
-        resized_image_uint8 = image_uint8.resize((new_width, new_height), resample=Image.BICUBIC)
-
-        # Convert resized_image_uint8 back to float32 for further processing if necessary
-        resized_data_float32 = np.array(resized_image_uint8, dtype=np.float32) / 255.0
-
-        # Convert resized_data_float32 to PIL Image
-        resized_image_pil = Image.fromarray((resized_data_float32 * 255).astype(np.uint8))
-
-        # Ensure the image is in RGB mode
-        if resized_image_pil.mode != 'RGB':
-            resized_image_pil = resized_image_pil.convert('RGB')
-
-        # Convert image to numpy array and expand dimensions
-        img_array = np.expand_dims(np.array(resized_image_pil), axis=0)
+        # Convert image data to a NumPy array and expand dimensions
+        img_array = np.expand_dims(resized_data_uint8, axis=0)
 
         # Make prediction
         prediction = model.predict(img_array)
         predicted_class_index = np.argmax(prediction)
-        # predicted_class_label = class_labels[predicted_class_index]
         finding = findings[predicted_class_index]
 
         return finding
 
     except Exception as e:
-        print(f"Error reading DICOM file '{image_path}': {e}")
+        print(f"Error reading image '{image_path}': {e}")
+        return None
 
 app = Flask(__name__)
 CORS(app)
 
 @app.route('/predict', methods=['GET', 'OPTIONS'])
+
 def predict():
+    try:
+        # Get image URL from request arguments
+        image_url = request.args.get('image_url')
 
-  try:
-    # Get image URL from request arguments
-    image_url = request.args.get('image_url')
-    # image_url = 'https://firebasestorage.googleapis.com/v0/b/spendwise-6b61a.appspot.com/o/dicom_images%2Fffe07f4f98a7242b460c8d3a8e46832c.dicom?alt=media&token=dbf46143-2cf4-498a-b561-338bec882a22'
-    # Download DICOM image
-    print("Image URL:", image_url)
-    response = requests.get(image_url)
+        # Download image
+        print("Image URL:", image_url)
+        response = requests.get(image_url, stream=True)
 
-    # Check if image download is successful
-    if response.status_code == 200:
-        with open('xray_image.dicom', 'wb') as f:
-            f.write(response.content)
-        print("Image downloaded successfully!")
-    else:
-        print("Failed to download image. Status code:", response.status_code)
-        return jsonify({'error': 'Failed to download image'}), 500
+        # Check if image download is successful
+        if response.status_code == 200:
+            # Get content type from response header
+            content_type = response.headers.get('Content-Type')
 
-    # Call prediction function
-    prediction = predict_and_plot(model, 'xray_image.dicom')
-    print("Prediction:", prediction)
+            # Check content type and determine file extension
+            if content_type == "image/jpeg":
+                file_extension = "jpg"
+            elif content_type == "image/png":
+                file_extension = "png"
+            elif content_type == "image/dicom":
+                file_extension = "dicom"
+            else:
+                raise ValueError(f"Unsupported image format: {content_type}")
 
-    # Return prediction result
-    return jsonify({'prediction': prediction}), 200
+            # Save image with appropriate filename
+            filename = f"xray_image.{file_extension}"
+            with open(filename, 'wb') as f:
+                for chunk in response.iter_content(1024):
+                    f.write(chunk)
+            print("Image downloaded successfully!")
+        else:
+            print("Failed to download image. Status code:", response.status_code)
+            return jsonify({'error': 'Failed to download image'}), 500
 
-  except Exception as e:
-    print("An error occurred:", str(e))
-    return jsonify({'error': str(e)}), 500
+        # Call prediction function with appropriate filename
+        prediction = predict(model, filename)
+
+        # Return prediction result
+        return jsonify({'prediction': prediction}), 200
+
+    except Exception as e:
+        print("An error occurred:", str(e))
+        return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(debug=True)

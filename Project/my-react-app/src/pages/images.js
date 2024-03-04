@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import storage from "../firebase";
 
-const Images = () => { //these are images from firebase that Rahul needs for his ML
+const Images = () => {
   const [xrayImages, setXrayImages] = useState([])
 
   useEffect(() => {
