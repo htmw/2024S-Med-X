@@ -47,3 +47,11 @@ After activating your virtual environment, you can install all the required pack
     pip install -r requirements.txt
     ```
 
+## Running Flask App
+
+After installing required packages, use the following command to run the flask server.
+
+```
+python server.py
+```
+
