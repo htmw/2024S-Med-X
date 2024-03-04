@@ -1,8 +1,4 @@
-import React, { useRef, useState } from 'react';
-import SearchIcon from '../img/icons/search.png';
-import NotificationIcon from '../img/icons/nbell.png';
-import ProfileIcon from '../img/Profile.png';
-import ChevronIcon from '../img/icons/chevron.svg';
+import React from 'react';
 import Searchbar from '../searchbar/searchbar.js';
 import Notification from '../notification/notification.js';
 import Profile from '../profile/profile.js';

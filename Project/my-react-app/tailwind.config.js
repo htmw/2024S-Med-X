@@ -11,7 +11,7 @@ module.exports = {
         customGreen: '#A6FCAF',
         customWhite: '#FFFFFF',
         customPurple: '#B5A7F7',
-        custumBasewhite: {
+        customBasewhite: {
           DEFAULT: '#D9D9D9',
           '30': 'rgba(217, 217, 217, 0.3)',
         },
