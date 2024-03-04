@@ -17,7 +17,7 @@ findings = {14: 'No finding', 3: 'Cardiomegaly', 0: 'Aortic enlargement',
             7: 'Lung Opacity', 1: 'Atelectasis', 9: 'Other lesion', 6: 'Infiltration', 10: 'Pleural effusion',
             2: 'Calcification', 4: 'Consolidation', 12: 'Pneumothorax'}
 
-def predict(model, image_path):
+def get_finding(model, image_path):
     """Predicts the findings for a chest X-ray image.
 
     Args:
@@ -107,7 +107,7 @@ def predict():
             return jsonify({'error': 'Failed to download image'}), 500
 
         # Call prediction function with appropriate filename
-        prediction = predict(model, filename)
+        prediction = get_finding(model, filename)
 
         # Return prediction result
         return jsonify({'prediction': prediction}), 200
