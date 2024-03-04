@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import Uploadimg from "../components/img/upload.png";
 import storage from "../firebase.js";
 import { ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
@@ -8,9 +8,9 @@ const Medexer = () => {
     const [fileData, setFileData] = useState({ previewFile: null, errorMessage: '' });
     const fileInputRef = useRef(null);
     const [isDraggingOver, setIsDraggingOver] = useState(false);
-    const [imageList, setImageList] = useState([]);
+    const [uploadedImage, setUploadedImage] = useState(null)
 
-    const imageListRef = ref(storage, "images/");
+    const [finding, setFinding] = useState('');
 
 
     const openFileDialog = () => {
@@ -38,6 +38,7 @@ const Medexer = () => {
     };
 
     const checkFileType = (file) => {
+      setUploadedImage(file)
         // Check if file type is supported
         if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
             setFileData({ ...fileData, errorMessage: 'Unsupported file format. Please upload a .png or .jpeg file.' });
@@ -51,6 +52,7 @@ const Medexer = () => {
     };
 
     const deletePreviewFile = () => {
+      setFinding('')
         setFileData({ ...fileData, previewFile: null, errorMessage: '' });
     };
 
@@ -61,46 +63,35 @@ const Medexer = () => {
         return mbSize.toFixed(2) + ' MB';
     };
 
-    const uploadImage = () => {
-        if (fileData.previewFile === null) return;
+    const uploadImage = () => { //upload function that talks to storage service
+      if (uploadedImage == null) return; //if nothing has been uploaded, continue
+      const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`); //name of image + randomized code to make submissions unique
+      uploadBytes(imageRef, uploadedImage).then((snapshot) => { //translae image into bytes and send alert
+          getDownloadURL(snapshot.ref).then((url) => { 
+            handlePredict(url)
+          })
+          alert("image uploaded");
+      });
+  };
 
-        const imageRef = ref(storage, `images/${fileData.previewFile.name + v4()}`);
-        const metadata = {
-            contentType: fileData.previewFile.type, // Set the content type to the file type
-        };
-
-        /*
-        uploadBytes(imageRef, fileData.previewFile, metadata).then((snapshot) => {
-            getDownloadURL(snapshot.ref).then((url) => {
-                setImageList((prev) => [...prev, url]);
-            });
-            alert("Image uploaded successfully!");
-        });
-    };
-    */
-        const uploadTask = uploadBytes(imageRef, fileData.previewFile, metadata);
-
-        uploadTask.then((snapshot) => {
-            // Handle successful upload
-            getDownloadURL(snapshot.ref).then((url) => {
-                setImageList((prev) => [...prev, url]);
-            });
-            alert('Image uploaded successfully!');
-        }).catch((error) => {
-            // Handle errors
-            console.error('Error uploading image:', error);
-        });
+    const handlePredict = async (imageURL) => {
+      
+      try {
+        const response = await fetch(`http://127.0.0.1:5000/predict?image_url=${encodeURIComponent(imageURL)}`);
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch');
+        }
+  
+        const data = await response.json();
+        setFinding(data.prediction);
+        // setError('');
+      } catch (error) {
+        // setError('Error occurred while fetching data');
+        console.error(error);
+      }
     };
 
-    useEffect(() => {
-        listAll(imageListRef).then((response) => {
-            response.items.forEach((item) => {
-                getDownloadURL(item).then((url) => {
-                    setImageList((prev) => [...prev, url]);
-                });
-            });
-        });
-    }, [imageListRef, setImageList]);
 
 
 
@@ -125,7 +116,7 @@ const Medexer = () => {
                     </div>
                     <div className='inline-flex flex-col gap-5 items-start justify-around h-full'>
                         <div className='inline-flex flex-col gap-5 items-start justify-start'>
-                            <p className='text-xl'>Instruct</p>
+                            <p className='text-xl'>{finding ? finding : "Press Submit and Wait...!"}</p>
                             <p className='inline-flex flex-col gap-5'>
                                 Quis tempor aliquip elit ipsum adipisicing.<br />
                                 Quis tempor aliquip elit ipsum adipisicing.<br />
