@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Uploadimg from "../components/img/upload.png";
 import storage from "../firebase.js";
-import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
+import { ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 
 const Medexer = () => {
@@ -68,11 +68,27 @@ const Medexer = () => {
         const metadata = {
             contentType: fileData.previewFile.type, // Set the content type to the file type
         };
+
+        /*
         uploadBytes(imageRef, fileData.previewFile, metadata).then((snapshot) => {
             getDownloadURL(snapshot.ref).then((url) => {
                 setImageList((prev) => [...prev, url]);
             });
             alert("Image uploaded successfully!");
+        });
+    };
+    */
+        const uploadTask = uploadBytes(imageRef, fileData.previewFile, metadata);
+
+        uploadTask.then((snapshot) => {
+            // Handle successful upload
+            getDownloadURL(snapshot.ref).then((url) => {
+                setImageList((prev) => [...prev, url]);
+            });
+            alert('Image uploaded successfully!');
+        }).catch((error) => {
+            // Handle errors
+            console.error('Error uploading image:', error);
         });
     };
 
