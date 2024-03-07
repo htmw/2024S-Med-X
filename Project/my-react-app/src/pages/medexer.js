@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react';
 import Uploadimg from "../components/img/upload.png";
 import storage from "../firebase.js";
-import { ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
-
+import { useNavigate } from "react-router-dom";
 const Medexer = () => {
     const [fileData, setFileData] = useState({ previewFile: null, errorMessage: '' });
     const fileInputRef = useRef(null);
@@ -12,6 +12,7 @@ const Medexer = () => {
 
     const [finding, setFinding] = useState('');
 
+    const history = useNavigate()
 
     const openFileDialog = () => {
         fileInputRef.current.click();
@@ -84,7 +85,9 @@ const Medexer = () => {
         }
   
         const data = await response.json();
+
         setFinding(data.prediction);
+        history("/report", { state: { result: data.prediction , img: imageURL} } );
         // setError('');
       } catch (error) {
         // setError('Error occurred while fetching data');

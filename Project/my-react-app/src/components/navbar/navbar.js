@@ -67,7 +67,7 @@ const Navbar = () => {
                                 >Medexer</NavLink>
                             </div>
                         </div>
-                        <div className="w-fit justify-start items-center gap-3 inline-flex">
+                        {/* <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] relative">
                                 <TbReportMedical className={`${isReportActive ? activeClassName : normalLink} w-[20px] h-[20px]`} />
                             </div>
@@ -120,7 +120,7 @@ const Navbar = () => {
                                     }}
                                 >APItest</NavLink>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
