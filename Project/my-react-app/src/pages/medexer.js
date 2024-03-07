@@ -79,7 +79,7 @@ const Medexer = () => {
             alert("image uploaded");
             setIsLoading(false); //set loading to false after uploaded image
         });
-    };
+  };
 
     const handlePredict = async (imageURL) => {
 
