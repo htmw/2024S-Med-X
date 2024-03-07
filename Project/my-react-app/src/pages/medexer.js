@@ -84,7 +84,7 @@ const Medexer = () => {
     const handlePredict = async (imageURL) => {
 
         try {
-            const response = await fetch(`http://127.0.0.1:5000/predict?image_url=${encodeURIComponent(imageURL)}`);
+            const response = await fetch(`http://localhost:5001/predict?image_url=${encodeURIComponent(imageURL)}`);
 
             if (!response.ok) {
                 throw new Error('Failed to fetch');
@@ -100,9 +100,6 @@ const Medexer = () => {
             console.error(error);
         }
     };
-
-    //work on adding a loading pop up or alert after an image has been submitted, then show the result on the dashboard page
-
 
     return (
         <div className='w-full h-full flex flex-col justify-center items-center'>
