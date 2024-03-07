@@ -4,6 +4,9 @@ import storage from "../firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import Loading from './loading.js';
+
+
 const Medexer = () => {
     const [fileData, setFileData] = useState({ previewFile: null, errorMessage: '' });
     const fileInputRef = useRef(null);
@@ -11,6 +14,7 @@ const Medexer = () => {
     const [uploadedImage, setUploadedImage] = useState(null)
 
     const [finding, setFinding] = useState('');
+    const [isLoading, setIsLoading] = useState(false); //state for loading status
 
     const history = useNavigate()
 
@@ -39,7 +43,7 @@ const Medexer = () => {
     };
 
     const checkFileType = (file) => {
-      setUploadedImage(file)
+        setUploadedImage(file)
         // Check if file type is supported
         if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
             setFileData({ ...fileData, errorMessage: 'Unsupported file format. Please upload a .png or .jpeg file.' });
@@ -53,7 +57,7 @@ const Medexer = () => {
     };
 
     const deletePreviewFile = () => {
-      setFinding('')
+        setFinding('')
         setFileData({ ...fileData, previewFile: null, errorMessage: '' });
     };
 
@@ -65,41 +69,44 @@ const Medexer = () => {
     };
 
     const uploadImage = () => { //upload function that talks to storage service
-      if (uploadedImage == null) return; //if nothing has been uploaded, continue
-      const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`); //name of image + randomized code to make submissions unique
-      uploadBytes(imageRef, uploadedImage).then((snapshot) => { //translae image into bytes and send alert
-          getDownloadURL(snapshot.ref).then((url) => { 
-            handlePredict(url)
-          })
-          alert("image uploaded");
-      });
-  };
-
-    const handlePredict = async (imageURL) => {
-      
-      try {
-        const response = await fetch(`http://127.0.0.1:5000/predict?image_url=${encodeURIComponent(imageURL)}`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch');
-        }
-  
-        const data = await response.json();
-
-        setFinding(data.prediction);
-        history("/report", { state: { result: data.prediction , img: imageURL} } );
-        // setError('');
-      } catch (error) {
-        // setError('Error occurred while fetching data');
-        console.error(error);
-      }
+        if (uploadedImage == null) return; //if nothing has been uploaded, continue
+        setIsLoading(true); //setting loading to true before uploaded image
+        const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`); //name of image + randomized code to make submissions unique
+        uploadBytes(imageRef, uploadedImage).then((snapshot) => { //translae image into bytes and send alert
+            getDownloadURL(snapshot.ref).then((url) => {
+                handlePredict(url)
+            })
+            alert("image uploaded");
+            setIsLoading(false); //set loading to false after uploaded image
+        });
     };
 
+    const handlePredict = async (imageURL) => {
 
+        try {
+            const response = await fetch(`http://127.0.0.1:5000/predict?image_url=${encodeURIComponent(imageURL)}`);
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch');
+            }
+
+            const data = await response.json();
+
+            setFinding(data.prediction);
+            history("/report", { state: { result: data.prediction, img: imageURL } });
+            // setError('');
+        } catch (error) {
+            // setError('Error occurred while fetching data');
+            console.error(error);
+        }
+    };
+
+    //work on adding a loading pop up or alert after an image has been submitted, then show the result on the dashboard page
 
 
     return (
         <div className='w-full h-full flex flex-col justify-center items-center'>
+            {isLoading && <Loading />}
             {fileData.errorMessage && (
                 <div className="bg-red-500 text-white p-3 mb-3 rounded">
                     {fileData.errorMessage}
@@ -121,7 +128,7 @@ const Medexer = () => {
                         <div className='inline-flex flex-col gap-5 items-start justify-start'>
                             <p className='text-xl'>{finding ? finding : "Press Submit and Wait...!"}</p>
                             <p className='inline-flex flex-col gap-5'>
-                               
+
                             </p>
                         </div>
                         <div className='inline-flex flex-row gap-5'>
