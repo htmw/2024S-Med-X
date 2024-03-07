@@ -118,11 +118,7 @@ const Medexer = () => {
                         <div className='inline-flex flex-col gap-5 items-start justify-start'>
                             <p className='text-xl'>{finding ? finding : "Press Submit and Wait...!"}</p>
                             <p className='inline-flex flex-col gap-5'>
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
+                               
                             </p>
                         </div>
                         <div className='inline-flex flex-row gap-5'>
