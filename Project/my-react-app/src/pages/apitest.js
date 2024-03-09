@@ -5,7 +5,7 @@ const APItest = () => { //testing Python API in react
     const [data, setData] = useState([{}]); //data array
 
     useEffect(() => { //fetch members API
-        fetch("/members").then(
+        fetch("http://localhost:5001/members").then(
             res => res.json() //convert data into JSON
         ).then(data => { 
             setData(data) //pass data into constructor
