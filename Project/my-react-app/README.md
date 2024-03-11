@@ -1,3 +1,23 @@
+# Front-End React Setup on Docker
+
+Below are instructions on how to set up the front-end Docker image and run the Docker container.
+
+## Setting Up Docker Image
+
+1. Make sure you are in **my-react-app** directory and run the below command to create the image.
+
+    ```
+    docker build -t med-x:dev . --no-cache 
+    ```
+
+## Running the container from the image
+
+2. Run the below command to create the container.
+
+    ```
+    docker run -p 3000:300 med-x:dev
+    ```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
