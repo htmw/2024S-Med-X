@@ -66,7 +66,7 @@ def predict():
     except Exception as e:
         print("An error occurred:", str(e))
         return jsonify({'error': str(e)}), 500
-  
+
 
 #Members API Route
 @app.route("/members")
@@ -75,5 +75,5 @@ def members():
     return {"members": ["Member1", "Member2", "Member3"]} #dictionary (key-value pair) with array as value
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
 

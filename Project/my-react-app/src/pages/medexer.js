@@ -1,8 +1,11 @@
 import React, { useState, useRef } from 'react';
 import Uploadimg from "../components/img/upload.png";
 import storage from "../firebase.js";
-import { ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import { useNavigate } from "react-router-dom";
+import Loading from './loading.js';
+
 
 const Medexer = () => {
     const [fileData, setFileData] = useState({ previewFile: null, errorMessage: '' });
@@ -11,7 +14,9 @@ const Medexer = () => {
     const [uploadedImage, setUploadedImage] = useState(null)
 
     const [finding, setFinding] = useState('');
+    const [isLoading, setIsLoading] = useState(false); //state for loading status
 
+    const history = useNavigate()
 
     const openFileDialog = () => {
         fileInputRef.current.click();
@@ -38,7 +43,7 @@ const Medexer = () => {
     };
 
     const checkFileType = (file) => {
-      setUploadedImage(file)
+        setUploadedImage(file)
         // Check if file type is supported
         if (file.type !== 'image/png' && file.type !== 'image/jpeg') {
             setFileData({ ...fileData, errorMessage: 'Unsupported file format. Please upload a .png or .jpeg file.' });
@@ -52,7 +57,7 @@ const Medexer = () => {
     };
 
     const deletePreviewFile = () => {
-      setFinding('')
+        setFinding('')
         setFileData({ ...fileData, previewFile: null, errorMessage: '' });
     };
 
@@ -64,39 +69,41 @@ const Medexer = () => {
     };
 
     const uploadImage = () => { //upload function that talks to storage service
-      if (uploadedImage == null) return; //if nothing has been uploaded, continue
-      const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`); //name of image + randomized code to make submissions unique
-      uploadBytes(imageRef, uploadedImage).then((snapshot) => { //translae image into bytes and send alert
-          getDownloadURL(snapshot.ref).then((url) => { 
-            handlePredict(url)
-          })
-          alert("image uploaded");
-      });
+        if (uploadedImage == null) return; //if nothing has been uploaded, continue
+        setIsLoading(true); //setting loading to true before uploaded image
+        const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`); //name of image + randomized code to make submissions unique
+        uploadBytes(imageRef, uploadedImage).then((snapshot) => { //translate image into bytes and send alert
+            getDownloadURL(snapshot.ref).then((url) => {
+                handlePredict(url)
+            })
+            alert("image uploaded");
+            setIsLoading(false); //set loading to false after uploaded image
+        });
   };
 
     const handlePredict = async (imageURL) => {
-      
-      try {
-        const response = await fetch(`http://127.0.0.1:5000/predict?image_url=${encodeURIComponent(imageURL)}`);
-        
-        if (!response.ok) {
-          throw new Error('Failed to fetch');
+
+        try {
+            const response = await fetch(`http://localhost:5001/predict?image_url=${encodeURIComponent(imageURL)}`);
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch');
+            }
+
+            const data = await response.json();
+
+            setFinding(data.prediction);
+            history("/report", { state: { result: data.prediction, img: imageURL } });
+            // setError('');
+        } catch (error) {
+            // setError('Error occurred while fetching data');
+            console.error(error);
         }
-  
-        const data = await response.json();
-        setFinding(data.prediction);
-        // setError('');
-      } catch (error) {
-        // setError('Error occurred while fetching data');
-        console.error(error);
-      }
     };
-
-
-
 
     return (
         <div className='w-full h-full flex flex-col justify-center items-center'>
+            {isLoading && <Loading />}
             {fileData.errorMessage && (
                 <div className="bg-red-500 text-white p-3 mb-3 rounded">
                     {fileData.errorMessage}
@@ -118,11 +125,7 @@ const Medexer = () => {
                         <div className='inline-flex flex-col gap-5 items-start justify-start'>
                             <p className='text-xl'>{finding ? finding : "Press Submit and Wait...!"}</p>
                             <p className='inline-flex flex-col gap-5'>
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
-                                Quis tempor aliquip elit ipsum adipisicing.<br />
+
                             </p>
                         </div>
                         <div className='inline-flex flex-row gap-5'>

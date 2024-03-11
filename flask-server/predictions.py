@@ -2,9 +2,6 @@ from io import BytesIO
 from PIL import Image
 import numpy as np
 import pydicom
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
-import pydicom
 
 findings = {14: 'No finding', 3: 'Cardiomegaly', 0: 'Aortic enlargement',
             11: 'Pleural thickening', 5: 'ILD', 8: 'Nodule/Mass', 13: 'Pulmonary fibrosis',
