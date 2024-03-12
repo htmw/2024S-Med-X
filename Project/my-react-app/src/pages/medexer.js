@@ -72,7 +72,7 @@ const Medexer = () => {
         if (uploadedImage == null) return; //if nothing has been uploaded, continue
         setIsLoading(true); //setting loading to true before uploaded image
         const imageRef = ref(storage, `images/${uploadedImage.name + v4()}`); //name of image + randomized code to make submissions unique
-        uploadBytes(imageRef, uploadedImage).then((snapshot) => { //translae image into bytes and send alert
+        uploadBytes(imageRef, uploadedImage).then((snapshot) => { //translate image into bytes and send alert
             getDownloadURL(snapshot.ref).then((url) => {
                 handlePredict(url)
             })
