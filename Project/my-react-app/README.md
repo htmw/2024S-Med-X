@@ -1,4 +1,4 @@
-# Front-End React Setup on Docker
+# Front-End React Setup on Docker (Recommended)
 
 Below are instructions on how to set up the front-end Docker image and run the Docker container.
 
@@ -16,6 +16,27 @@ Below are instructions on how to set up the front-end Docker image and run the D
 
     ```
     docker run -p 3000:300 med-x:dev
+    ```
+***
+
+# Front-End React Setup on Local Machine
+
+Below are instructions on how to run the front-end
+
+## Files Required to Run
+
+1. Make sure you are in **my-react-app** directory and run the below command to install the necessary files.
+
+    ```
+    npm install 
+    ```
+
+## Running the Front-End
+
+2. Run the below command to run the Front-End.
+
+    ```
+    npm start
     ```
 
 # Getting Started with Create React App

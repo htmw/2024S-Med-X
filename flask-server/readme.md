@@ -1,4 +1,4 @@
-# Backend Flask API Setup on Docker
+# Backend Flask API Setup on Docker (Recommended)
 
 Below are instructions on how to setup backend Docker image and run Docker container.
 
@@ -7,7 +7,7 @@ Below are instructions on how to setup backend Docker image and run Docker conta
 1. Make sure you are in flask-server directory and run the below command to create image.
 
     ```
-    docker build -t flask-app .
+    docker build -t flask-app . --no-cache
     ```
 
 ## Running the container from the image
