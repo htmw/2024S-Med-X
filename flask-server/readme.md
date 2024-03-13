@@ -1,4 +1,4 @@
-# Backend Flask API Setup on Docker
+# Backend Flask API Setup on Docker (Recommended)
 
 Below are instructions on how to setup backend Docker image and run Docker container.
 
