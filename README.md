@@ -1,8 +1,8 @@
 # 2024S-Med-X"
 
-[How to set up Front-End Code locally or via Docker](https://github.com/htmw/2024S-Med-X/tree/main/Project/my-react-app)
+[How to set up Front-End Code via Docker or Local Machine](https://github.com/htmw/2024S-Med-X/tree/main/Project/my-react-app)
 <br/>
-[How to set up Back-End Code locally or via Docker](https://github.com/htmw/2024S-Med-X/tree/main/flask-server)
+[How to set up Back-End Code via Docker or Local Machine(https://github.com/htmw/2024S-Med-X/tree/main/flask-server)
 
 ## Project Description
 
