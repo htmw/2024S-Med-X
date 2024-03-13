@@ -19,7 +19,7 @@ Below are instructions on how to set up the front-end Docker image and run the D
     ```
 ***
 
-# Front-End React Setup Locally
+# Front-End React Setup on Local Machine
 
 Below are instructions on how to run the front-end
 
