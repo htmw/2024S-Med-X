@@ -1,6 +1,5 @@
 Flask==3.0.2
 flask-cors==4.0.0
 requests==2.31.0
-tensorflow==2.15.0
-pillow==10.2.0
-pydicom==2.4.4
+opencv-python==4.9.0.80
+tensorflow==2.13.0

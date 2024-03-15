@@ -13,10 +13,10 @@ from flask import Flask, request, jsonify
 import requests
 from flask_cors import CORS
 from tensorflow.keras.models import load_model
-from predictions import get_finding
+from chexpert_prediction import get_finding
 
 # Load the model
-model = load_model('dicom_images.keras')
+model = load_model('optimized_model.h5')
 
 app = Flask(__name__)
 CORS(app)
@@ -39,9 +39,11 @@ def predict():
 
             # Check content type and determine file extension
             if content_type == "image/jpeg":
+                file_extension = "jpeg"
+            elif content_type == "image/jpg":
                 file_extension = "jpg"
             elif content_type == "image/png":
-                file_extension = "png"
+              file_extension = "png"
             elif content_type == "image/dicom":
                 file_extension = "dicom"
             else:
@@ -58,10 +60,12 @@ def predict():
             return jsonify({'error': 'Failed to download image'}), 500
 
         # Call prediction function with appropriate filename
-        prediction = get_finding(model, filename)
+        result = get_finding(model, filename)
 
         # Return prediction result
-        return jsonify({'prediction': prediction}), 200
+        return jsonify({'prediction': result['top_diagnosis'],
+                        'predictions': result['predictions']
+                        }), 200
 
     except Exception as e:
         print("An error occurred:", str(e))
