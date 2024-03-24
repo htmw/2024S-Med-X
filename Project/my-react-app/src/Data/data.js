@@ -1,3 +1,4 @@
+/*
 export const numbers = [
     33943,
     67331,
@@ -15,8 +16,6 @@ export const numbers = [
     35690,
     58691,
     33092
-
-
-    
 ]
+*/
 
