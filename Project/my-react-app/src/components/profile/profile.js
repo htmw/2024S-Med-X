@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import ProfileIcon from '../img/Profile.png';
 import { FaChevronDown } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { getAuth, signOut } from "firebase/auth"; // Import signOut from Firebase
+
 const Profile = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -15,15 +17,27 @@ const Profile = () => {
             setIsDropdownOpen(false);
         }
     };
-    //event listener to close list of options from Chevronicon when clicking somewhere else and not just on the Chevronicon
+
+    const handleLogout = () => {
+        const auth = getAuth();
+        signOut(auth)
+            .then(() => {
+                // Sign-out successful.
+                console.log("User signed out successfully.");
+            })
+            .catch((error) => {
+                // An error happened.
+                console.error("Error occurred while signing out:", error);
+            });
+    };
+
+    // Event listener to close dropdown when clicking outside
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
-
-
 
     return (
         <div className="relative h-full" ref={dropdownRef}>
@@ -39,10 +53,16 @@ const Profile = () => {
                     {/* Dropdown content here */}
                     <ul >
                         <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
-                            <Link >Option 1</Link>
+                            <Link to="/">Option 1</Link>
                         </li>
-                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">   <Link >Option 2</Link></li>
-                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">   <Link >Option 3</Link></li>
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
+                            <Link to="/">Option 2</Link>
+                        </li>
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
+                            <button className="LogoutButton text-white text-lg bg-red-600 px-4 py-2 rounded-md" onClick={handleLogout}>
+                                Logout
+                            </button>
+                        </li>
                     </ul>
                 </div>
             )}
