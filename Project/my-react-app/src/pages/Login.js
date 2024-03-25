@@ -1,16 +1,18 @@
 import React from 'react';
 import Logo from '../components/img/Logo.png';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
 
 const Login = () => {
+  const { setUser } = useAuth(); // Access setUser from AuthContext
+
   const signIn = () => {
     const auth = getAuth();
     signInWithEmailAndPassword(auth, "afernandez@gmail.com", "123456")
       .then((userCredential) => {
-        
         const user = userCredential.user;
-       
-
+        setUser(user);
+        console.log(user) // Set user in context
       })
       .catch((error) => {
         const errorCode = error.code;

@@ -5,6 +5,7 @@ import Navbar from './components/navbar/navbar.js';
 import { auth } from './firebase.js'; // Import auth from firebase.js
 import Login from './pages/Login.js';
 
+import { AuthProvider } from './components/session/AuthContext.js';
 function App() {
     const [user, setUser] = useState(null);
 
@@ -26,9 +27,11 @@ function App() {
     }, []);
 
     return (
+        <AuthProvider>
         <div className="App overflow-y-scroll no-scrollbar">
             {user ? <Main /> : <Login/>} {/* Conditional rendering based on user */}
         </div>
+        </AuthProvider>
     );
 }
 
