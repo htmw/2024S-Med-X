@@ -12,10 +12,10 @@ const Login = () => {
       .then((userCredential) => {
         const user = userCredential.user;
         setUser(user);
-        console.log(user) // Set user in context
+        
       })
       .catch((error) => {
-        const errorCode = error.code;
+        const errorCode = error. code;
         const errorMessage = error.message;
       });
   };
