@@ -5,8 +5,8 @@ import SearchBar from './pages/search.js';
 function App() {
     return (
         <div className="App overflow-y-scroll no-scrollbar ">
-            {/* <Main/> */}
-           <SearchBar/>
+            <Main/>
+          { /*<SearchBar/> */}
         </div>
     );
 }

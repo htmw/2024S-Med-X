@@ -1,3 +1,5 @@
+/*
+
 import React, { useState, useEffect } from 'react';
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
@@ -19,26 +21,25 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 const SearchBar = () => {
-  const [patientData, setPatientData] = useState([]);
+  const [xrayData, setxrayData] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
 
   useEffect(() => {
-    const unsubscribe = onSnapshot(collection(db, 'Patient'), (snapshot) => {
-      const patients = snapshot.docs.map(doc => {
+    const unsubscribe = onSnapshot(collection(db, 'X-ray'), (snapshot) => {
+      const xrays = snapshot.docs.map(doc => {
         // Extract multiple fields from each document
         const data = doc.data(); // Get all fields from the document
-        const { p_id, p_name, p_email, p_b_date } = data
+        const { medical_term, p_id, scan_date } = data
+        const { id } = doc; // Get document ID
 
+        // Check if scan_date is a Timestamp before calling toDate()
+        const scan_formatted_Date = scan_date && typeof scan_date.toDate === 'function' ? scan_date.toDate().toLocaleDateString() : '';
 
-        // Check if p_b_date exists before calling toDate()
-        const formattedDate = p_b_date ? p_b_date.toDate().toLocaleDateString() : '';
-
-
-        return { p_id, p_name, p_email, formattedDate };
+        return { id, medical_term, p_id, scan_formatted_Date };
       });
-      setPatientData(patients);
+      setxrayData(xrays);
     });
 
     return () => unsubscribe();
@@ -51,13 +52,13 @@ const SearchBar = () => {
     }
 
     // Filter patientData based on searchTerm
-    const results = patientData.filter(patient =>
-      Object.values(patient).some(value =>
+    const results = xrayData.filter(xray =>
+      Object.values(xray).some(value =>
         value !== undefined && value.toString().toLowerCase().includes(searchTerm.toLowerCase())
-      )
+        ) || xray.id.toLowerCase().includes(searchTerm.toLowerCase()) // Include document ID in search
     );
     setSearchResults(results);
-  }, [searchTerm, patientData]);
+  }, [searchTerm, xrayData]);
 
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
@@ -74,12 +75,11 @@ const SearchBar = () => {
       />
       {searchResults.length > 0 && (
         <ul>
-          {searchResults.map((patient, index) => (
+          {searchResults.map((xray, index) => (
             <li key={index}>
-              <div>{patient.p_id}</div>
-              <div>{patient.p_name}</div>
-              <div>{patient.p_email}</div>
-              <div>{patient.formattedDate}</div>
+              <div>{xray.medical_term}</div>
+              <div>{xray.p_id}</div>
+              <div>{xray.scan_formatted_Date}</div>
             </li>
           ))}
         </ul>
@@ -89,3 +89,4 @@ const SearchBar = () => {
 };
 
 export default SearchBar;
+*/
