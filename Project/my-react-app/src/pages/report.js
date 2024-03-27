@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { db } from '../firebase'; // Import your Firebase configuration
-import {collection, addDoc, Timestamp} from 'firebase/firestore'
+import {collection, addDoc, Timestamp ,setDoc,doc} from 'firebase/firestore'
 import { useAuth } from '../components/session/AuthContext';
 
 const Report = () => {
@@ -25,12 +25,13 @@ const Report = () => {
   const addReportToFirestore = async (e) => {
     e.preventDefault()
     try {
-      await addDoc(collection(db, 'X-ray'), {
+      await setDoc(doc(db, 'X-ray','4'), {
         p_id: user.uid, // Insert user's UID as p_id
         xr_image: url, // Insert URL as xr_image
         scan_date: formattedDate, // Insert formatted date as scan_date
         medical_term: result // Insert result as medical_term
       })
+   
     } catch (err) {
       alert(err)
     }
@@ -61,8 +62,13 @@ const Report = () => {
           </div>
           <div className="self-stretch flex-col justify-start items-start flex">
             <div className="text-center text-customPurple text-3xl font-normal font-['Inter']">{result}</div>{/* i want to insert this as medical_term*/}
-            <button className="bg-white text-black"onClick={addReportToFirestore}>Add Report</button>
           </div>
+          <div className="self-stretch flex-col justify-end items-end flex">
+          <div className="DownloadReport  h-12 px-5 py-2.5 bg-black bg-opacity-20 rounded-lg justify-start items-start gap-2.5 inline-flex">
+<button className="PrintReport text-center text-white text-2xl font-normal font-['Inter']"onClick={addReportToFirestore}>Submit Report</button>
+</div>
+          </div>
+        
         </div>
       </div>
       
