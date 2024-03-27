@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { db } from '../firebase'; // Import your Firebase configuration
-import {collection, addDoc, Timestamp ,setDoc,doc} from 'firebase/firestore'
+import {collection,setDoc,doc,getDocs} from 'firebase/firestore'
 import { useAuth } from '../components/session/AuthContext';
 
 const Report = () => {
@@ -23,19 +23,31 @@ const Report = () => {
   // Function to insert data into Firestore
   
   const addReportToFirestore = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      await setDoc(doc(db, 'X-ray','4'), {
-        p_id: user.uid, // Insert user's UID as p_id
-        xr_image: url, // Insert URL as xr_image
-        scan_date: formattedDate, // Insert formatted date as scan_date
-        medical_term: result // Insert result as medical_term
-      })
-   
+        // Fetch the number of existing reports
+        const reportsRef = collection(db, 'X-ray');
+        const reportsSnapshot = await getDocs(reportsRef);
+        const numReports = reportsSnapshot.size;
+
+        // Generate the next report ID
+        const nextReportId = String(numReports).padStart(5, '0');
+
+        // Construct the document path and set the data
+        const reportDocRef = doc(db, 'X-ray', nextReportId);
+        await setDoc(reportDocRef, {
+            p_id: user.uid,
+            xr_image: url,
+            scan_date: formattedDate,
+            medical_term: result
+        });
+
+        console.log("Report added successfully to Firestore.");
     } catch (err) {
-      alert(err)
+        console.error("Error adding report to Firestore:", err);
+        alert(err);
     }
-  }
+};
 
   // Call the function to add report to Firestore
   // You can trigger this function on a button click event
