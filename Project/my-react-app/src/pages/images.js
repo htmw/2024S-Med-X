@@ -24,7 +24,7 @@ const Images = () => {
     <div className='grid grid-cols-10 gap-6'>
       {xrayImages.map((url, index) => {
 
-        return <img key={index} src={url} alt={`Image' ${index}`} />
+        return <img key={index} src={url} alt={"Image" `${index}`} />
         //return <p className="text-white">{url}</p>
       })}
     </div>

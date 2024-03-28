@@ -4,8 +4,9 @@ import Main from './components/main/main.js';
 import Navbar from './components/navbar/navbar.js';
 import { auth } from './firebase.js'; // Import auth from firebase.js
 import Login from './pages/Login.js';
-
 import { AuthProvider } from './components/session/AuthContext.js';
+import './components/navbar/navbar.js'
+import SearchBar from './pages/search.js';
 function App() {
     const [user, setUser] = useState(null);
 
