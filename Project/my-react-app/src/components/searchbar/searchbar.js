@@ -69,7 +69,7 @@ const Searchbar = () => {
                 <input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search report id  medical term or by date"
+                    placeholder="Search your report id, medical term or date"
                     className="text-customBasewhite w-full text-base font-normal font-['Inter'] bg-transparent border-none outline-none placeholder:text-customBasewhite-30 focus:placeholder:invisible"
                     onChange={(e) => handleSearch(e)}
                 />
