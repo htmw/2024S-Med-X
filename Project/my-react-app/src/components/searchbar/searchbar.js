@@ -69,24 +69,9 @@ const Searchbar = () => {
     };
 
     return (
-        <form className="h-full w-full bg-neutral-900 rounded-[20px] flex-col justify-start items-start inline-flex">
+        <form className="h-full w-full bg-neutral-900 rounded-[20px] flex-col justify-start items-start inline-flex z-50">
             {/* X-ray data section */}
-            {searchTerm && searchResults.length > 0 && (
-                <div className="h-full w-full bg-neutral-900 rounded-[20px] flex-col justify-start items-start inline-flex">
-                    {searchResults.map((xray, index) => (
-                        <div key={index} className="self-stretch p-5 bg-neutral-900 rounded-[20px] justify-between items-center inline-flex">
-                            <div className="h-[19px] justify-center items-center gap-5 flex">
-                                <div className="text-white text-base font-normal font-['Inter']">{xray.id}</div>
-                                <div className="text-indigo-300 text-base font-normal font-['Inter']">{xray.medical_term}</div>
-                            </div>
-                            <div className="justify-end items-center gap-5 flex">
-                                <div className="text-emerald-200 text-base font-normal font-['Inter']">{xray.scanFormattedDate}</div>
-                                {/* Add status */}
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            )}
+           
 
             {/* Search bar */}
             <div className="inline-flex justify-between items-center p-5 bg-primary rounded-[30px] h-full w-full">
@@ -103,6 +88,22 @@ const Searchbar = () => {
                     </div>
                 </button>
             </div>
+            {searchTerm && searchResults.length > 0 && (
+                <div className="h-full w-full bg-neutral-900 rounded-[20px] flex-col justify-start items-start inline-flex">
+                    {searchResults.map((xray, index) => (
+                        <div key={index} className="self-stretch p-5 bg-neutral-900 rounded-[20px] justify-between items-center inline-flex">
+                            <div className="h-[19px] justify-center items-center gap-5 flex">
+                                <div className="text-white text-base font-normal font-['Inter']">{xray.id}</div>
+                                <div className="text-indigo-300 text-base font-normal font-['Inter']">{xray.medical_term}</div>
+                            </div>
+                            <div className="justify-end items-center gap-5 flex">
+                                <div className="text-emerald-200 text-base font-normal font-['Inter']">{xray.scanFormattedDate}</div>
+                                {/* Add status */}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
         </form>
     );
 };
