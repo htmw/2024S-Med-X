@@ -2,27 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { db } from '../firebase';
 import { useAuth } from '../components/session/AuthContext';
 
-import {collection, query,orderBy,limit,getDocs, where,} from 'firebase/firestore'
+import { collection, query, orderBy, limit, getDocs, where } from 'firebase/firestore';
+
 const Dashboard = () => {
     const [lastScan, setLastScan] = useState(null);
+    const [loading, setLoading] = useState(true); // Loading state
 
     const { user } = useAuth();
     useEffect(() => {
         const fetchLastScan = async () => {
             try {
                 const scansRef = collection(db, 'X-ray');
-                const q = query(scansRef, where("p_id","==",user.uid),orderBy('scan_date', 'desc'), limit(1));
+                const q = query(scansRef, where("p_id", "==", user.uid), orderBy('scan_date', 'desc'), limit(1));
                 const querySnapshot = await getDocs(q);
                 querySnapshot.forEach(doc => {
                     setLastScan(doc.data());
                 });
             } catch (error) {
                 console.error("Error fetching last scan:", error);
+            } finally {
+                setLoading(false); // Set loading to false when fetching is done
             }
         };
 
         fetchLastScan();
     }, []);
+
+    if (loading) {
+        return <div className='h-full w-full text-white inline-flex justify-center items-center'>Loading...</div>; // Render loading indicator
+    }
 
     return (
         <div className="h-full flex-col inline-flex gap-10 pl-5 pr-5 pt-5">
