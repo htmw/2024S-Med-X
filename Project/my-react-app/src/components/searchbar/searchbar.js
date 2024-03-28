@@ -4,21 +4,11 @@ import React, { useRef, useState, useEffect } from 'react';
 import { FaSearch } from "react-icons/fa";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
+import StatusButton from '../button/StatusButton';
+import { db } from '../../firebase'; 
 
-const firebaseConfig = {
-    //Firebase configuration
-    apiKey: "AIzaSyBVe1Rjk5oFHP57-ZRgG9nm-S62hZZQpd4",
-    authDomain: "med-x-5f2b4.firebaseapp.com",
-    databaseURL: "https://med-x-5f2b4-default-rtdb.firebaseio.com",
-    projectId: "med-x-5f2b4",
-    storageBucket: "med-x-5f2b4.appspot.com",
-    messagingSenderId: "9302046680",
-    appId: "1:9302046680:web:38444a4847e45702f664ad",
-    measurementId: "G-LR1NET7P9R"
-};
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+
 
 const Searchbar = () => {
     const searchInputRef = useRef(null);
@@ -31,10 +21,11 @@ const Searchbar = () => {
         const unsubscribe = onSnapshot(collection(db, 'X-ray'), (snapshot) => {
             const xrays = snapshot.docs.map(doc => {
                 const data = doc.data();
-                const { medical_term, p_id, scan_date } = data;
+                const { medical_term, p_id, scan_date ,status} = data;
                 const { id } = doc;
                 const scanFormattedDate = scan_date && typeof scan_date.toDate === 'function' ? scan_date.toDate().toLocaleDateString() : '';
-                return { id, medical_term, p_id, scanFormattedDate };
+            
+                return { id, medical_term, p_id, scanFormattedDate ,status};
             });
             setXrayData(xrays);
         });
@@ -78,7 +69,7 @@ const Searchbar = () => {
                 <input
                     ref={searchInputRef}
                     type="text"
-                    placeholder="Search"
+                    placeholder="Search report id  medical term or by date"
                     className="text-customBasewhite w-full text-base font-normal font-['Inter'] bg-transparent border-none outline-none placeholder:text-customBasewhite-30 focus:placeholder:invisible"
                     onChange={(e) => handleSearch(e)}
                 />
@@ -88,6 +79,7 @@ const Searchbar = () => {
                     </div>
                 </button>
             </div>
+            <div className='mt-3 bg-neutral-900 rounded-[20px] w-full'>
             {searchTerm && searchResults.length > 0 && (
                 <div className="h-full w-full bg-neutral-900 rounded-[20px] flex-col justify-start items-start inline-flex">
                     {searchResults.map((xray, index) => (
@@ -97,13 +89,16 @@ const Searchbar = () => {
                                 <div className="text-indigo-300 text-base font-normal font-['Inter']">{xray.medical_term}</div>
                             </div>
                             <div className="justify-end items-center gap-5 flex">
-                                <div className="text-emerald-200 text-base font-normal font-['Inter']">{xray.scanFormattedDate}</div>
-                                {/* Add status */}
+                            
+      <StatusButton status={xray.status} />
+                                <div className="text-emerald-200 text-base font-normal font-['Inter'] ">{xray.scanFormattedDate}</div>
+                               
                             </div>
                         </div>
                     ))}
                 </div>
             )}
+            </div>
         </form>
     );
 };

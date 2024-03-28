@@ -1,8 +1,10 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { db } from '../firebase'; // Import your Firebase configuration
-import {collection,setDoc,doc,getDocs} from 'firebase/firestore'
+import { collection, setDoc, doc, getDocs } from 'firebase/firestore';
 import { useAuth } from '../components/session/AuthContext';
+
+import { Timestamp } from "firebase/firestore";
 
 const Report = () => {
   const { user } = useAuth();
@@ -10,48 +12,45 @@ const Report = () => {
   const result = location.state.result;
   const url = location.state.img;
 
+  // Get the current date and time
   const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleString('en-US', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-    hour12: true,
-  });
+  
+  // Create a Firestore Timestamp object from the current date
+  const formattedDate = Timestamp.fromDate(currentDate);
 
   // Function to insert data into Firestore
-  
   const addReportToFirestore = async (e) => {
     e.preventDefault();
     try {
-        // Fetch the number of existing reports
-        const reportsRef = collection(db, 'X-ray');
-        const reportsSnapshot = await getDocs(reportsRef);
-        const numReports = reportsSnapshot.size;
+      // Fetch the number of existing reports
+      const reportsRef = collection(db, 'X-ray');
+      const reportsSnapshot = await getDocs(reportsRef);
+      const numReports = reportsSnapshot.size;
 
-        // Generate the next report ID
-        const nextReportId = String(numReports).padStart(5, '0');
+      // Generate the next report ID
+      const nextReportId = String(numReports).padStart(5, '0');
 
-        // Construct the document path and set the data
-        const reportDocRef = doc(db, 'X-ray', nextReportId);
-        await setDoc(reportDocRef, {
-            p_id: user.uid,
-            xr_image: url,
-            scan_date: formattedDate,
-            medical_term: result
-        });
+      // Construct the document path and set the data
+      const reportDocRef = doc(db, 'X-ray', nextReportId);
+      await setDoc(reportDocRef, {
+        p_id: user.uid,
+        xr_image: url,
+        scan_date: formattedDate,
+        medical_term: result,
+        status:"0",
+        mp_comment:"",
+        mp_id:"",
+        mp_review_date:"",
+        medical_description:"",
+        h_id:""
+      });
 
-        console.log("Report added successfully to Firestore.");
+      console.log("Report added successfully to Firestore.");
     } catch (err) {
-        console.error("Error adding report to Firestore:", err);
-        alert(err);
+      console.error("Error adding report to Firestore:", err);
+      alert(err);
     }
-};
-
-  // Call the function to add report to Firestore
-  // You can trigger this function on a button click event
-  // For example, <button onClick={addReportToFirestore}>Add Report</button>
+  };
 
   return (
     <div className="h-full flex-col inline-flex gap-10 pl-5 pr-5 pt-5">
@@ -70,20 +69,18 @@ const Report = () => {
         <div className="grow shrink basis-0 self-stretch flex-col justify-center items-center gap-5 inline-flex">
           <div className="w-1/2 self-stretch h-12 justify-between items-center inline-flex">
             <div className="text-center text-white text-xl font-normal font-['Inter']">Results</div>
-            <div className="text-customGreen font-normal font-['Inter']">{formattedDate}</div>{/* i want to insert this as scan_date*/}
+            <div className="text-customGreen font-normal font-['Inter']">{formattedDate.toDate().toLocaleString()}</div>
           </div>
           <div className="self-stretch flex-col justify-start items-start flex">
-            <div className="text-center text-customPurple text-3xl font-normal font-['Inter']">{result}</div>{/* i want to insert this as medical_term*/}
+            <div className="text-center text-customPurple text-3xl font-normal font-['Inter']">{result}</div>
           </div>
           <div className="self-stretch flex-col justify-end items-end flex">
-          <div className="DownloadReport  h-12 px-5 py-2.5 bg-black bg-opacity-20 rounded-lg justify-start items-start gap-2.5 inline-flex">
-<button className="PrintReport text-center text-white text-2xl font-normal font-['Inter']"onClick={addReportToFirestore}>Submit Report</button>
-</div>
+            <div className="DownloadReport  h-12 px-5 py-2.5 bg-black bg-opacity-20 rounded-lg justify-start items-start gap-2.5 inline-flex">
+              <button className="PrintReport text-center text-white text-2xl font-normal font-['Inter']" onClick={addReportToFirestore}>Submit Report</button>
+            </div>
           </div>
-        
         </div>
       </div>
-      
     </div>
   );
 };
