@@ -21,7 +21,7 @@ const Navbar = () => {// Access user from AuthContext
     const iconactive = 'white';
     const icon = 'rgba(255, 255, 255, 0.3)';
     return (
-        <div className="h-full w-fit p-5 bg-primary  flex-col justify-start items-start gap-2.5 inline-flex rounded-r-3xl">
+        <div className="h-full w-fit p-5 bg-primary  flex-col justify-start items-start gap-2.5 inline-flex rounded-r-[10px]">
             <div className="self-stretch h-full flex-col justify-between items-center flex gap-9">
                 <div className="flex-col justify-start items-center gap-2.5 flex">
                     <div className="w-[180px] h-[180px] justify-center items-center inline-flex">

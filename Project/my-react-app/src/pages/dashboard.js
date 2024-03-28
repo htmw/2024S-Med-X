@@ -3,6 +3,7 @@ import { db } from '../firebase';
 import { useAuth } from '../components/session/AuthContext';
 
 import { collection, query, orderBy, limit, getDocs, where } from 'firebase/firestore';
+import StatusButton from '../components/button/StatusButton';
 
 const Dashboard = () => {
     const [lastScan, setLastScan] = useState(null);
@@ -55,10 +56,14 @@ const Dashboard = () => {
                         <div className="text-center text-customPurple text-xl font-normal font-['Inter']">{lastScan ? lastScan.medical_term : ""}</div>
                         <div className="self-stretch text-justify text-white font-normal font-['Inter'] text-wrap w-1/2">{lastScan ? lastScan.medical_term_description : ""}</div>
                     </div>
-                    <div className="self-stretch flex-col justify-start items-start flex">
-                        <div className="text-center text-white text-xl font-normal font-['Inter']">Doctors Message:</div>
-                        <div className="self-stretch text-justify text-white font-normal font-['Inter'] text-wrap w-1/2">{lastScan ? lastScan.doctors_message : ""}</div>
-                    </div>
+                    <div className="self-stretch flex-col justify-start items-start flex gap-5">
+    <div className="text-center text-white text-xl font-normal font-['Inter']">Doctors Message:</div>
+    <div className="self-stretch text-justify text-white font-normal font-['Inter'] text-wrap w-1/2">
+        {lastScan && lastScan.mp_comment !== "" ? lastScan.mp_comment : "the report is yet to be reviewed"}
+    </div>
+    <StatusButton status={lastScan.status}/>
+</div>
+
                 </div>
             </div>
         </div>

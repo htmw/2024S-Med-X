@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../components/img/Logo.png';
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
-
+import Devider from  '../components/img/image 3.png'
 const Login = () => {
   const { setUser } = useAuth(); // Access setUser from AuthContext
 
@@ -35,7 +35,7 @@ const Login = () => {
             <div className="Doctor text-white text-4xl font-normal font-['Inter']">Doctor</div>
           </div>
           <div className="Divider p-2.5 justify-center items-center gap-2.5 flex">
-            <img className="Image3 w-48 h-72" src="https://via.placeholder.com/200x300" alt="Divider" />
+            <img className="Image3 w-48 h-72" src={Devider} alt="Divider" />
           </div>
           <div className="Patient grow shrink basis-0 self-stretch p-2.5 flex-col justify-end items-center gap-5 inline-flex" onClick={signIn}>
             <img className="Image1 w-48 h-72" src="https://via.placeholder.com/200x300" alt="Patient" />
