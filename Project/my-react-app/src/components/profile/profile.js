@@ -103,6 +103,11 @@ const Profile = () => {
                         ))}
                         <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
                             <button className="LogoutButton text-white text-lg bg-red-600 px-4 py-2 rounded-md" onClick={handleLogout}>
+                                Profile
+                            </button>
+                        </li>
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
+                            <button className="LogoutButton text-white text-lg bg-red-600 px-4 py-2 rounded-md" onClick={handleLogout}>
                                 Logout
                             </button>
                         </li>
