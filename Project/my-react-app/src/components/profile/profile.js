@@ -40,6 +40,11 @@ const Profile = () => {
             });
     };
 
+    const handleProfileClick = () => {
+        console.log("moved successfully");
+        navigate('/patientprofile');
+    };
+
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
@@ -102,7 +107,7 @@ const Profile = () => {
                             </li>
                         ))}
                         <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
-                            <button className="LogoutButton text-white text-lg bg-red-600 px-4 py-2 rounded-md" onClick={handleLogout}>
+                            <button className="LogoutButton text-white text-lg bg-red-600 px-4 py-2 rounded-md" onClick={handleProfileClick}>
                                 Profile
                             </button>
                         </li>
