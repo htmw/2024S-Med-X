@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import Main from './components/main/main.js';
 import Landing from './pages/Landing.js';
+import PatientProfile from './pages/patientprofile.js'
 import {AuthProvider} from './components/session/AuthContext.js';
 import {auth} from './firebase.js'; // Import auth from firebase.js
 import PrintableReport from './test/printpdf.js';
@@ -30,7 +31,7 @@ function App() {
                         <Route path='*'element=    {
                         user
                             ? <Main user={user}/>
-                            : <Landing/>
+                            : <PatientProfile/>
                     }/>
                     <Route path='/patientlogin' element={<PatientLogin/>}/>   
                     <Route path='/patientsignup' element={<PatientSignUp/>}/>   
