@@ -31,7 +31,7 @@ function App() {
                         <Route path='*'element=    {
                         user
                             ? <Main user={user}/>
-                            : <PatientProfile/>
+                            : <Landing/>
                     }/>
                     <Route path='/patientlogin' element={<PatientLogin/>}/>   
                     <Route path='/patientsignup' element={<PatientSignUp/>}/>   
