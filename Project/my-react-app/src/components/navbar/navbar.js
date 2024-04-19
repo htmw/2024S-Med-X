@@ -57,7 +57,7 @@ const Navbar = () => {// Access user from AuthContext
                             </div>
                             <div>
                                 <NavLink
-                                    to="/medexer"
+                                    to="medexer"
                                     className={isMedexerActive ? activeClassName : normalLink}
                                     onClick={() => {
                                         setIsDashboardActive(false);

@@ -44,8 +44,7 @@ const Dashboard = () => {
             <div className="h-full flex-col inline-flex gap-10 pl-5 pr-5 pt-5">
             <div className='flex-col items-start inline-flex gap-5'>
                 <div className="text-center text-white text-4xl font-normal font-['Inter']">Dashboard</div>
-            </div>
-            <div className="justify-center items-center gap-10 inline-flex p-5">
+            </div>{lastScan?  <div className="justify-center items-center gap-10 inline-flex p-5">
                 <div className="self-stretch flex-col justify-start items-start inline-flex">
                     <div className="flex-col justify-center items-start gap-5 flex w-[200px] h-[300px]">
                         <img
@@ -68,10 +67,11 @@ const Dashboard = () => {
                         <div className="self-stretch text-justify text-white font-normal font-['Inter'] text-wrap w-1/2">
                             {lastScan && lastScan.mp_comment !== "" ? lastScan.mp_comment : "the report is yet to be reviewed"}
                         </div>
-                        <StatusButton status={lastScan.status}/>
+                        <StatusButton status={lastScan? lastScan.status: null}/>
                     </div>
                 </div>
-            </div>
+            </div>:"please upload a report"}
+          
         </div>
         );
     } else if (userType === "doctor") {
