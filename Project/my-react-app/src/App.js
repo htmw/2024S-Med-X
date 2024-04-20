@@ -2,15 +2,17 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import Main from './components/main/main.js';
 import Landing from './pages/Landing.js';
-import PatientProfile from './pages/patientprofile.js'
 import {AuthProvider} from './components/session/AuthContext.js';
 import {auth} from './firebase.js'; // Import auth from firebase.js
 import PrintableReport from './test/printpdf.js';
 import ReportPage from './pages/reportpage.js';
+import SignUp from './pages/signup.js';
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import PatientLogin from './pages/PatientLogin.js';
 import PatientSignUp from './pages/psignup.js';
+import DoctorSignup from './pages/dsignup.js';
+import PatientProfile from './pages/patientprofile.js';
 function App() {
     const [user, setUser] = useState(null);
 
@@ -31,7 +33,8 @@ function App() {
                         <Route path='*'element=    {
                         user
                             ? <Main user={user}/>
-                            : <Landing/>
+                            //: <Landing/>
+                            : <DoctorSignup/>
                     }/>
                     <Route path='/patientlogin' element={<PatientLogin/>}/>   
                     <Route path='/patientsignup' element={<PatientSignUp/>}/>   

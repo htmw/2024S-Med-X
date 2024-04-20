@@ -19,7 +19,8 @@ const Submain = () => {
              <Routes> 
                 {/* Render patient or doctor dashboard based on user*/}
                 <Route path="/" element={<Dashboard />} />
-                <Route path="/medexer" element={<Medexer />} /> 
+                <Route path="/medexer" element={<Medexer />} />
+                <Route path="/" element={<DoctorDashboard />} /> 
                 <Route path="/report" element={<Report />} />
                 <Route path="/reportgall" element={<ReportGallery />} />
                 <Route path="/images" element={<Images />} />
