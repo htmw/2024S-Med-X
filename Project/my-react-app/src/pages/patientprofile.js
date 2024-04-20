@@ -33,7 +33,7 @@ return(
                 </div>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label for="sex" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Sex</label></div>
-                    <div><select name="sex" id ="sex" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}>
+                    <div><select name="sex" id="sex" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
@@ -44,7 +44,7 @@ return(
             <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label for="phone" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Contact Number</label></div>
-                    <div><input type="tel" id="phone" name="phone" placeholder="718-123-7698" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
+                    <div><input type="tel" id="phone" name="phone" placeholder="718-123-7698" pattern="/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                 <div><label style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>E-mail</label></div>
@@ -65,6 +65,7 @@ return(
                 <div>
                     <button style={{textAlign: 'center', color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Submit</button></div>
             </div>
+            <div class="result"></div>
         </div>
     {/* </div> */}
     </form>
