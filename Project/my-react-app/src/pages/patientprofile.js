@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ProfileIcon from '../components/img/Profile.png';
 import { useAuth } from '../components/session/AuthContext';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
+import {sendEmailVerification,updateEmail, getAuth} from 'firebase/auth';
+// import {getAuth, onAuthStateChanged} from '../firebase/auth';
 import { collection, query, onSnapshot, doc, getDoc, updateDoc } from "firebase/firestore";
-
+import { useNavigate } from 'react-router-dom';
 
 const PatientProfile =()=>{
-
+    const navigate = useNavigate();
     const { userType, user } = useAuth();
     const [userData, setUserData] = useState({
         p_fname: '',
@@ -16,7 +18,8 @@ const PatientProfile =()=>{
         p_number: '',
         p_email: '',
         p_city_state: '',
-        p_zip: ''
+        p_zip: '',
+        p_name:''
     });
 
     useEffect(() => {
@@ -50,9 +53,21 @@ const PatientProfile =()=>{
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
+            const auth = getAuth();
+            try{
+                await sendEmailVerification(auth.currentUser)
+                console.log("Verification email sent to " + userData.p_email); //no email arrives
+            } catch (error) {
+                console.error(`Error sending verification email: ${error.code}`);
+                console.error(`Extra error info: ${error.message}`);
+            }
+            await updateEmail(auth.currentUser, userData.p_email)
+            console.log(user.email);// should be old one
+            console.log("hope it works");
             if(userType == "patient") {
                 const patientDoc = doc(db, 'Patient', user.uid);
                 await updateDoc(patientDoc,{
+                    p_name: userData.p_email,
                     p_email: userData.p_email,
                     p_fname: userData.p_fname,
                     p_lname: userData.p_lname,
@@ -62,10 +77,12 @@ const PatientProfile =()=>{
                     p_city_state: userData.p_city_state,
                     p_zip: userData.p_zip
                 });
-                console.log("it worked");
             }
+            console.log(user.email); // should be new one
+            navigate('/patientprofile');
         } catch (error) {
-            console.error("did not work:", error);
+            console.error(`Error code: ${error.code}`);
+            console.error(`Error message: ${error.message}`);
         }
     };
 
