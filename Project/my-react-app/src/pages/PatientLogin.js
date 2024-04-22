@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Logo from "../components/img/Logo.png";
 import PatientImage from "../components/img/patient il2.png";
 import { useEffect } from 'react';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
 import { useNavigate } from 'react-router-dom';
 
@@ -25,6 +25,7 @@ const PatientLogin = () => {
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('userType', type);
             navigate('/');
+            sendEmailVerification(auth.currentUser);
           })
           .catch((error) => {
             const errorCode = error.code;

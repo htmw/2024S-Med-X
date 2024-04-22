@@ -1,7 +1,7 @@
 import React, { useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/img/Logo.png';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword,sendEmailVerification, getAuth } from 'firebase/auth';
 import { auth } from '../firebase';
 import Patient from '../components/img/patient il.png'
 import { db } from '../firebase'; // Import your Firebase configuration
@@ -74,6 +74,7 @@ const PatientSignUp = () => {
             // Step 2: Submit the Form
             const form = e.target;
             form.submit();
+
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
                 setEmailError("This email address is already in use.");
