@@ -24,6 +24,9 @@ const DoctorLogin = () => {
                 localStorage.setItem('user', JSON.stringify(user));
                 localStorage.setItem('userType', type);
                 navigate('/');
+                if(user.emailVerified === false){
+                    sendEmailVerification(auth.currentUser);
+                    }
             })
             .catch((error) => {
                 const errorCode = error.code;

@@ -61,7 +61,7 @@ const DoctorSignUp = () => {
             let doctorData = {
                 mp_email: email,
                 mp_password: password,
-                p_name: email,
+                mp_name: email,
                 user_type: "0"
             };
             const reportDocRef = doc(db, 'Medical Professional', user.uid);
@@ -70,7 +70,7 @@ const DoctorSignUp = () => {
             setUserType(type); // Set the user type after successful sign-in
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('userType', type);
-            navigate('/', { replace: true });
+            navigate('/doctorlogin', { replace: true });
 
             // Step 2: Submit the Form
             const form = e.target;
