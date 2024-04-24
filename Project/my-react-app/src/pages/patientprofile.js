@@ -82,6 +82,7 @@ const PatientProfile =()=>{
                 });
             }
             console.log(user.email); // should be new one
+            alert("Your information has been updated!")
             navigate('/patientprofile');
          } catch (error) {
             console.error(`Error code: ${error.code}`);
