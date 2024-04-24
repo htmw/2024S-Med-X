@@ -54,23 +54,18 @@ const PatientProfile =()=>{
         event.preventDefault();
         try {
             const auth = getAuth();
-            // try{
-            //     await sendEmailVerification(auth.currentUser)
-            //     console.log("Verification email sent to " + userData.p_email); //NO EMAIL ARRIVES, THOUGH :(
-            // } catch (error) {
-            //     console.error(`Error sending verification email: ${error.code}`);
-            //     console.error(`Extra error info: ${error.message}`);
-            // }
             
-            //     await updateEmail(auth.currentUser, userData.p_email);
-            // }catch (error) {
-            //     console.error(`Error code: ${error.code}`);
-            //     console.error(`Error message: ${error.message}`);
-            // }
-            console.log(user.email);// should be old one
-            if(currentUser.emailVerified){
-                console.log("email is verified");
+            try{ 
+                await updateEmail(auth.currentUser, userData.p_email);
+                //await sendEmailVerification()
+            }catch (error) {
+                console.error(`Error code: ${error.code}`);
+                console.error(`Error message: ${error.message}`);
             }
+            console.log(user.email);// should be old one
+            // if(user.emailVerified){
+            //     console.log("email is verified");
+            // }
             console.log("hope it works");
             if(userType == "patient") {
                 const patientDoc = doc(db, 'Patient', user.uid);
@@ -88,7 +83,7 @@ const PatientProfile =()=>{
             }
             console.log(user.email); // should be new one
             navigate('/patientprofile');
-        } catch (error) {
+         } catch (error) {
             console.error(`Error code: ${error.code}`);
             console.error(`Error message: ${error.message}`);
         }
