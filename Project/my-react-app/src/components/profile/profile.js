@@ -97,7 +97,7 @@ const Profile = () => {
                     <ul>
                         {loggedinuser.map(user => (
                             <li key={user.id} className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
-                                <p>{user.mp_name || user.p_name}</p>
+                                <p>{`${user.mp_fname} ${user.mp_lname}` || user.p_name}</p>
                                 <p>{user.mp_number || user.p_number}</p>
                             </li>
                         ))}
