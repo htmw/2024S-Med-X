@@ -195,3 +195,5 @@ const PatientSignUp = () => {
     </div>
     )
 }
+
+export default PatientSignUp;

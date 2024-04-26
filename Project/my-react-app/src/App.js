@@ -2,10 +2,8 @@ import React, {useState, useEffect} from 'react';
 import './App.css';
 import Main from './components/main/main.js';
 import Landing from './pages/Landing.js';
-import { AuthProvider } from './components/session/AuthContext.js';
 import { auth } from './firebase.js'; // Import auth from firebase.js
 import {AuthProvider} from './components/session/AuthContext.js';
-import {auth} from './firebase.js'; // Import auth from firebase.js
 import PrintableReport from './test/printpdf.js';
 import ReportPage from './pages/reportpage.js';
 import SignUp from './pages/signup.js';

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../img/Logo.png';
 import Medexericon from "../img/icons/medex-w";
-
 import { MdDashboard } from "react-icons/md";
 import { TbReportMedical } from "react-icons/tb";
 import { MdPeople } from "react-icons/md";
@@ -44,7 +43,7 @@ const Navbar = () => {// Access user from AuthContext
                                         setIsDashboardActive(true);
                                         setIsMedexerActive(false);
                                         setIsReportActive(false);
-                                        setisUserActive(false);
+                                        setIsUserActive(false);
                                        // setIsReportdActive(false);
                                        //setIsImagesActive(false);
                                         //setIsAPItestActive(false);
@@ -65,7 +64,7 @@ const Navbar = () => {// Access user from AuthContext
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(true);
                                         setIsReportActive(false);
-                                        setisUserActive(false);
+                                        setIsUserActive(false);
                                         //setIsReportdActive(false);
                                         //setIsImagesActive(false);
                                         //setIsAPItestActive(false);
@@ -85,7 +84,7 @@ const Navbar = () => {// Access user from AuthContext
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(false);
                                         setIsReportActive(true);
-                                        setisUserActive(false);
+                                        setIsUserActive(false);
                                         //setIsReportdActive(false);
                                         //setIsImagesActive(false);
                                         //setIsAPItestActive(false);
