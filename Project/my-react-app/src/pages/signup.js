@@ -25,10 +25,6 @@ const SignUp = () => {
     };
 
 
-
-   
-
-
     const handlingSignUp = async (e) => {
         e.preventDefault();
 
@@ -152,4 +148,6 @@ const SignUp = () => {
     );
 };
 
+
 export default SignUp;
+

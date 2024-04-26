@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Logo from "../components/img/Logo.png";
-
-import { getAuth, signInWithEmailAndPassword,signOut } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword,signOut, sendEmailVerification } from "firebase/auth";
 import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
 import { useNavigate } from 'react-router-dom';
 import DoctorImage from "../components/img/doctor il2.png";
@@ -38,6 +37,7 @@ const DoctorLogin = () => {
                                 localStorage.setItem('user', JSON.stringify(currentUser));
                                 localStorage.setItem('userType', type);
                                 navigate('/');
+                  
                 } else {
                     // User document does not exist
 

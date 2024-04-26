@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Logo from "../components/img/Logo.png";
 import PatientImage from "../components/img/patient il2.png";
-import { getAuth, signInWithEmailAndPassword ,signOut} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword ,signOut, sendEmailVerification} from "firebase/auth";
 import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
 import { useNavigate } from 'react-router-dom';
 import { db } from '../firebase';
@@ -61,6 +61,7 @@ const PatientLogin = () => {
     
     const handleclick = () => {
         navigate("/patientsignup")
+
     };
     return (
         <div
@@ -73,6 +74,7 @@ const PatientLogin = () => {
                 <div
                     className="Frame6 self-stretch grow shrink basis-0 justify-center items-center gap-2.5 inline-flex">
                     <img className="Image4 h-full" src={PatientImage} alt="" />
+
                 </div>
             </div>
             <div
@@ -98,6 +100,7 @@ const PatientLogin = () => {
                             type="password"
                             placeholder="********"
                             className="flex py-px h-12 w-full px-5 bg-white rounded-2xl flex-grow flex-shrink flex-basis-0 self-stretch text-zinc-800 text-opacity-80 text-base font-normal" />
+
                     </div> {error && <div className="text-red-500">{error}</div>}
                     <button
                         className="Frame8 w-36 p-2.5 bg-purple-500 rounded-2xl flex justify-center items-center" onClick={() => handleLogin(email, password,"patient")}>
@@ -108,6 +111,7 @@ const PatientLogin = () => {
                         className="DontHaveAnAccountClickHere text-center text-white text-base font-normal">DONT HAVE AN ACCOUNT?
                         <br />
                         <button className="underline" onClick={handleclick}>Click here</button>
+
                     </div>
                 </div>
             </div>
@@ -116,3 +120,4 @@ const PatientLogin = () => {
 }
 
 export default PatientLogin;
+

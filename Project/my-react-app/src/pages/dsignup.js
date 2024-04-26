@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/img/Logo.png';
@@ -10,7 +11,6 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Hide from "../components/img/icons/hide.svg";
 import UnHide from "../components/img/icons/unhide.svg";
 const DoctorSignUp = () => {
-
     const [email, setEmail] = useState('');
     const [confirmEmail, setConfirmEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -61,7 +61,7 @@ const DoctorSignUp = () => {
             let doctorData = {
                 mp_email: email,
                 mp_password: password,
-                p_name: email,
+                mp_name: email,
                 user_type: "1"
             };
             const reportDocRef = doc(db, 'Medical Professional', user.uid);
@@ -70,7 +70,7 @@ const DoctorSignUp = () => {
             setUserType(type); // Set the user type after successful sign-in
             localStorage.setItem('user', JSON.stringify(user));
             localStorage.setItem('userType', type);
-            navigate('/', { replace: true });
+            navigate('/doctorlogin', { replace: true });
 
             // Step 2: Submit the Form
             const form = e.target;
