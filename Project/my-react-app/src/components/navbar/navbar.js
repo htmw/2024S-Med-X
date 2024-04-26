@@ -105,7 +105,7 @@ const Navbar = () => {// Access user from AuthContext
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(false);
                                         setIsReportActive(false);
-                                        setIsDoctorActive(true);
+                                        setIsUserActive(true);
                                         //setIsReportdActive(false);
                                         //setIsImagesActive(false);
                                         //setIsAPItestActive(false);
