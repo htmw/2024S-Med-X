@@ -9,8 +9,6 @@ import Profile from '../components/profile/profile';
 
 const updateprofile = () => {
 
-
-
     return (
 
         <div className="h-screen bg-secondary justify-center items-center inline-flex">
@@ -73,4 +71,4 @@ const updateprofile = () => {
     );
 };
 
-export default updateprofile
+export default updateprofil

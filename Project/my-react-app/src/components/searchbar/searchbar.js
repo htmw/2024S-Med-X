@@ -86,9 +86,9 @@ setSearchResults([]);
                     </div>
                 </button>
             </div>
-            <div className='mt-3 bg-neutral-900 rounded-[20px] w-full'>
+            <div className='mt-3 bg-neutral-900 rounded-[20px] w-full h-[300px] '>
             {searchTerm && searchResults.length > 0 && (
-                <div className="h-full w-full bg-neutral-900 rounded-[20px] flex-col justify-start items-start inline-flex" >
+                <div className="max-h-[400px] w-full bg-neutral-900 rounded-[20px] flex-col justify-start items-start inline-flex overflow-scroll no-scrollbar " >
                     {searchResults.map((xray, index) => (
                         <div key={index} className="self-stretch p-5 bg-neutral-900 rounded-[20px] justify-between items-center inline-flex hover:bg-slate-700" onClick={() => handleNavigate(xray.id)}>
                             <div className="h-[19px] justify-center items-center gap-5 flex">

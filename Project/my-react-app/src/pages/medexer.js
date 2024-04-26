@@ -10,7 +10,7 @@ import { useAuth } from '../components/session/AuthContext';
 
 const Medexer = () => {
     const { userType, user } = useAuth();
-    console.log(user,userType)
+    console.log(user, userType)
     const [fileData, setFileData] = useState({ previewFile: null, errorMessage: '' });
     const fileInputRef = useRef(null);
     const [isDraggingOver, setIsDraggingOver] = useState(false);
