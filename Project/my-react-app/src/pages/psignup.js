@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/img/Logo.png';
@@ -44,6 +45,7 @@ const PatientSignUp = () => {
 
         const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.{6,})/;
         if (!passwordRegex.test(password)) {
+
             setPasswordError(
                 "Password must contain at least one uppercase letter, one special character, an" +
                 "d be at least 6 characters long."
@@ -61,6 +63,7 @@ const PatientSignUp = () => {
             const type = "patient"
             console.log('User signed up:', user.uid)
             let patientData = {
+
                 p_name: name,
                 p_email: email,
                 p_password: password,
@@ -192,5 +195,3 @@ const PatientSignUp = () => {
     </div>
     )
 }
-
-export default PatientSignUp;

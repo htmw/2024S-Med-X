@@ -11,6 +11,8 @@ import Images from "../../pages/images";
 import ReportGallery from "../../pages/reportgallery";
 import ReportPage from "../../pages/reportpage";
 import DoctorProfile from "../../pages/doctorprofile";
+import PatientProfile from "../../pages/patientprofile";
+
 
 const Submain = () => {
     return (
@@ -19,12 +21,15 @@ const Submain = () => {
              <Routes> 
                 {/* Render patient or doctor dashboard based on user*/}
                 <Route path="/" element={<Dashboard />} />
+
                 <Route path="/medexer" element={<Medexer />} /> 
+                <Route path="/" element={<DoctorDashboard />} /> 
                 <Route path="/report" element={<Report />} />
                 <Route path="/reportgall" element={<ReportGallery />} />
                 <Route path="/images" element={<Images />} />
                 <Route path="/reportdetails/:reportId" element={<ReportPage />} />
                 <Route path="/doctorprofile" element={<DoctorProfile />}/>
+                <Route path="/patientprofile" element={<PatientProfile/>} />
             </Routes>
             <Footer/>
         </div>

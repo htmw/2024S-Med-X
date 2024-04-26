@@ -96,7 +96,6 @@ const Navbar = () => {// Access user from AuthContext
                         <div className="w-fit justify-start items-center gap-3 inline-flex">
                             <div className="w-[20px] h-[20px] ">
                                 <MdPeople className={`${isUserActive ? activeClassName : normalLink} w-[20px] h-[20px]`} />
-
                             </div>
                             <div>
                                 <NavLink
@@ -106,10 +105,7 @@ const Navbar = () => {// Access user from AuthContext
                                         setIsMedexerActive(false);
                                         setIsReportActive(false);
                                         setIsUserActive(true);
-                                        //setIsReportdActive(false);
-                                        //setIsImagesActive(false);
-                                        //setIsAPItestActive(false);
-                                    }}
+                                      }}
                                 >Profile</NavLink>
                             </div>
                         </div>

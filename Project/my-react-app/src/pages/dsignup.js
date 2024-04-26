@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Logo from '../components/img/Logo.png';
@@ -10,7 +11,6 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Hide from "../components/img/icons/hide.svg";
 import UnHide from "../components/img/icons/unhide.svg";
 const DoctorSignUp = () => {
-
     const [email, setEmail] = useState('');
     const [confirmEmail, setConfirmEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -60,7 +60,7 @@ const DoctorSignUp = () => {
             console.log('User signed up:', user.uid)
             let doctorData = {
                 mp_email: email,
-                mp_password: password,
+                mp_password: password,r
                 mp_name: email,
                 user_type: "0"
             };

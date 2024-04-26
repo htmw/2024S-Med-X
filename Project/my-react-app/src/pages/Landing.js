@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import Logo from '../components/img/Logo.png';
 import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
 import Devider from '../components/img/image 3.png'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
+import Devider from  '../components/img/image 3.png'
 import Doctor from '../components/img/doctor il.png'
 import Patient from '../components/img/patient il.png'
 import { useNavigate } from 'react-router-dom';
@@ -25,6 +28,7 @@ const Landing = () => {
   const signInAsDoctor = () => {
     navigate('/doctorlogin')
   };
+
   return (
     <div className="Preview w-full h-screen flex-col justify-center items-center gap-2.5 inline-flex bg-primary">
       <div className="Logo flex-col justify-start items-start gap-7 flex">
@@ -51,5 +55,4 @@ const Landing = () => {
     </div>
   );
 };
-
 export default Landing;

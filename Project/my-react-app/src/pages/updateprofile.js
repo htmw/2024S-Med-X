@@ -71,4 +71,4 @@ const updateprofile = () => {
     );
 };
 
-export default updateprofile
+export default updateprofil
