@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import Logo from "../components/img/Logo.png";
-
-import { getAuth, signInWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword,signOut, sendEmailVerification } from "firebase/auth";
 import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
 import { useNavigate } from 'react-router-dom';
 import DoctorImage from "../components/img/doctor il2.png";
+import { db } from '../firebase';
+import {doc,getDoc } from "firebase/firestore";
 const DoctorLogin = () => {
 
     const { setUser, setUserType } = useAuth(); // Access setUser and setUserType from AuthContext
@@ -14,29 +15,46 @@ const DoctorLogin = () => {
     const [password, setPassword] = useState('');
 
     // Run only once on component mount
-    const signInAs = (email, password, type) => {
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                setUser(user);
-                setUserType(type); // Set the user type after successful sign-in
-                localStorage.setItem('user', JSON.stringify(user));
-                localStorage.setItem('userType', type);
-                navigate('/');
-                if(user.emailVerified === false){
-                    sendEmailVerification(auth.currentUser);
-                    }
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                setError(error.code);
-            });
-    };
+    const handleLogin = async (email, password,type) => {
+        try {
+            console.log(email,password)
+            const auth = getAuth();
+            // Sign in user
+            await signInWithEmailAndPassword(auth, email, password);
+    
+            // Get current user
+            const currentUser = auth.currentUser;
+    
+            if (currentUser) {
+                // Get user document from Firestore
+                
+                const doctorDoc = doc(db, 'Medical Professional',currentUser.uid);
+                const userDoc = await getDoc(doctorDoc);
+                console.log(userDoc._document)
+                if (userDoc._document!=null) {
+                                setUser(currentUser);
+                                setUserType(type); // Set the user type after successful sign-in
+                                localStorage.setItem('user', JSON.stringify(currentUser));
+                                localStorage.setItem('userType', type);
+                                navigate('/');
+                  
+                } else {
+                    // User document does not exist
 
-    const handleLogin = () => {
-        signInAs(email, password, "doctor");
+                    setError("You are not authorized to log in as a Patient.");
+                    const auth = getAuth();
+                    signOut(auth)
+                    // Handle this case
+                }
+            } else {
+                console.log("No user signed in")
+                // No user signed in
+                // Handle this case
+            }
+        } catch (error) {
+            // Handle errors
+            console.error("Error handling login:", error);
+        }
     };
     const handleclick = () => {
         navigate("/doctorsignup")
@@ -69,7 +87,7 @@ const DoctorLogin = () => {
                             className="flex py-px h-12 w-full px-5 bg-white rounded-2xl flex-grow flex-shrink flex-basis-0 self-stretch text-zinc-800 text-opacity-80 text-base font-normal" />
                     </div> {error && <div className="text-red-500">{error}</div>}
                     <button
-                        className="Frame8 w-36 p-2.5 bg-purple-500 rounded-2xl flex justify-center items-center" onClick={handleLogin}>
+                        className="Frame8 w-36 p-2.5 bg-purple-500 rounded-2xl flex justify-center items-center"  onClick={() => handleLogin(email, password,"doctor")}>
                         <div
                             className="Loginbutton text-white text-base font-normal flex justify-center items-center">Login</div>
                     </button>

@@ -60,9 +60,9 @@ const DoctorSignUp = () => {
             console.log('User signed up:', user.uid)
             let doctorData = {
                 mp_email: email,
-                mp_password: password,r
+                mp_password: password,
                 mp_name: email,
-                user_type: "0"
+                user_type: "1"
             };
             const reportDocRef = doc(db, 'Medical Professional', user.uid);
             await setDoc(reportDocRef, doctorData);
