@@ -71,7 +71,7 @@ const DoctorProfile =()=>{
                 const doctorDoc = doc(db, 'Medical Professional', user.uid);
 
                 const updatedUserData = { // should I do this updatedUserData for patientprofile as well? 
-                    mp_name: userData.mp_email || '', // if they didn't put anything, it stays blank
+                    mp_name: userData.mp_name || '', // if they didn't put anything, it stays blank
                     mp_email: userData.mp_email || '',
                     mp_b_date: userData.mp_b_date || '',
                     mp_sex: userData.mp_sex || '',

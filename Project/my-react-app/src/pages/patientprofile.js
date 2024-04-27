@@ -114,7 +114,7 @@ return(
                     <div><input id="p_b_date" name = "p_b_date" type="date" onChange={handleChange} value={userData.p_b_date} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}} /></div>
                 </div>
             </div>
-            <div>
+            <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label htmlFor="p_sex" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Sex at Birth</label></div>
                     <div><select name="p_sex" id="p_sex" onChange={handleChange} value={userData.p_sex} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}>
