@@ -41,8 +41,13 @@ const Profile = () => {
     };
 
     const handleProfileClick = () => {
-        console.log("moved successfully");
+        if (userType === "patient") {
+            console.log("moved successfully");
         navigate('/patientprofile');
+        }
+        else {
+            navigate('/doctorprofile'); 
+        }
     };
 
     useEffect(() => {
