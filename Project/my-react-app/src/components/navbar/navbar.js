@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Logo from '../img/Logo.png';
 import Medexericon from "../img/icons/medex-w";
 import { MdDashboard } from "react-icons/md";
+import { useAuth } from '../components/session/AuthContext';
 import { TbReportMedical } from "react-icons/tb";
 import { MdPeople } from "react-icons/md";
 

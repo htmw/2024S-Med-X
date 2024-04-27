@@ -11,13 +11,12 @@ const PatientProfile =()=>{
     const navigate = useNavigate();
     const { userType, user } = useAuth();
     const [userData, setUserData] = useState({
-        p_fname: '',
-        p_lname: '',
         p_b_date: '',
         p_sex: '',
         p_number: '',
         p_email: '',
-        p_city_state: '',
+        p_city: "",
+        p_state: '',
         p_zip: '',
         p_name:''
     });
@@ -69,17 +68,17 @@ const PatientProfile =()=>{
             console.log("hope it works");
             if(userType == "patient") {
                 const patientDoc = doc(db, 'Patient', user.uid);
-                await updateDoc(patientDoc,{
-                    p_name: userData.p_email,
-                    p_email: userData.p_email,
-                    p_fname: userData.p_fname,
-                    p_lname: userData.p_lname,
-                    p_b_date: userData.p_b_date,
-                    p_sex: userData.p_sex,
-                    p_number: userData.p_number,
-                    p_city_state: userData.p_city_state,
-                    p_zip: userData.p_zip
-                });
+                const updatedUserData = {
+                    p_name: userData.p_name || '',
+                    p_email: userData.p_email || '',
+                    p_b_date: userData.p_b_date || '',
+                    p_sex: userData.p_sex || '',
+                    p_number: userData.p_number || '',
+                    p_city: userData.p_city || '',
+                    p_state: userData.p_state || '',
+                    p_zip: userData.p_zip || ''
+                }
+                await updateDoc(patientDoc, updatedUserData);
             }
             console.log(user.email); // should be new one
             alert("Your information has been updated!")
@@ -97,52 +96,54 @@ return(
     <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 10, display: 'inline-flex'}}>
         <div><img src={ProfileIcon} alt="profile image" style={{width: 100, height: 100, background: '#D9D9D9', borderRadius: 100}}/></div>
         <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 10, display: 'inline-flex'}}>
-            <div style={{color: 'white', fontSize: 48, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{userData.p_fname} {userData.p_lname}</div>
+            <div style={{color: 'white', fontSize: 40, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>{userData.p_name}</div>
             <div style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Dr. Name</div>
         </div>
     </div>
+    <br/>
     <form style={{alignSelf: 'stretch', height: 377, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'flex'}} onSubmit={handleSubmit}>
     {/* <div style={{alignSelf: 'stretch', height: 377, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10, display: 'flex'}}> */}
         <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 20, display: 'flex'}}>
             <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
-                    <div><label htmlFor="fname" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>First Name</label></div>
-                    <div><input type="text" id="fname" name="p_fname" onChange={handleChange} value={userData.p_fname} style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
+                    <div><label htmlFor="p_name" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Full Name</label></div>
+                    <div><input type="text" id="p_name" name="p_name" onChange={handleChange} value={userData.p_name} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
-                <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
-                    <div><label htmlFor="lname" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Last Name</label></div>
-                    <div><input type="text" id="lname" name="p_lname" onChange={handleChange} value={userData.p_lname} style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
-                </div>
-            </div>
-            <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label htmlFor = "p_b_date"style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Date of Birth</label></div>
                     <div><input id="p_b_date" name = "p_b_date" type="date" onChange={handleChange} value={userData.p_b_date} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}} /></div>
                 </div>
+            </div>
+            <div>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
-                    <div><label htmlFor="p_sex" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Sex</label></div>
+                    <div><label htmlFor="p_sex" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Sex at Birth</label></div>
                     <div><select name="p_sex" id="p_sex" onChange={handleChange} value={userData.p_sex} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}>
+                        <option value="">Please choose an option</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>
                     </select>
                     </div>
                 </div>
-            </div>
-            <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label htmlFor="p_number" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Contact Number</label></div>
                     <div><input type="tel" id="p_number" name="p_number" onChange={handleChange} value={userData.p_number} placeholder="718-123-7698" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
+            </div>
+            <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                 <div><label style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>E-mail</label></div>
                     <div><input type="email" id="p_email" name="p_email" onChange={handleChange} value={userData.p_email} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
+                <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
+                    <div><label htmlFor="p_city_state" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>City</label></div>
+                    <div><input type="text" id="p_city_state" name="p_city" onChange={handleChange} value={userData.p_city} placeholder="New York, NY" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
+                </div>
             </div>
             <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
-                    <div><label htmlFor="p_city_state" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>City, State</label></div>
-                    <div><input type="text" id="p_city_state" name="p_city_state" onChange={handleChange} value={userData.p_city_state} placeholder="New York, NY" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
+                    <div><label htmlFor="p_city_state" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>State</label></div>
+                    <div><input type="text" id="p_city_state" name="p_state" onChange={handleChange} value={userData.p_state} placeholder="New York, NY" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                 <div><label htmlFor="p_zip" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Zip Code</label></div>
@@ -156,6 +157,7 @@ return(
         </div>
     {/* </div> */}
     </form>
+    <br/>
 </div>
 </>
     );
