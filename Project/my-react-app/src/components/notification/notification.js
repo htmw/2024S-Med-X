@@ -1,5 +1,3 @@
-//import React from 'react'
-//import NotificationIcon from '../img/icons/nbell.png';
 import React, { useState, useEffect, useRef } from 'react';
 import { IoIosNotifications } from "react-icons/io";
 import { useAuth } from '../../components/session/AuthContext';
@@ -14,14 +12,14 @@ const Notification = () => {
     const [hasChanges, setHasChanges] = useState(false);
     const dropdownRef = useRef(null);
     const { user, userType } = useAuth();
-
+const [notification, setNotification] = useState("");
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
 
     const handleClickOutside = (event) => {
         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-            setIsDropdownOpen(false);
+            setIsDropdownOpen(false); 
         }
     };
 
@@ -40,10 +38,14 @@ const Notification = () => {
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
         snapshot.docChanges().forEach((change) => {
-            const docData = change.doc.data();
+            const modifiedData = change.doc.data();
+            const documentId = change.doc.id;
+            if (change.type === "modified") {
 
-            if (change.type === "modified" && (docData.mp_comment || docData.status)) {
-                setHasChanges(true);
+                console.log (modifiedData)
+                setNotification("comment:" + modifiedData.mp_comment + " report id:" + documentId);
+
+                //console.log(notification);
             }
         });
     });
@@ -69,8 +71,11 @@ const Notification = () => {
                     <ul>
                         <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
                             <p>
-                                test
+                               {notification}
                             </p>
+                            <ul>
+                                
+                            </ul>
                         </li>
                     </ul>
                 </div>
