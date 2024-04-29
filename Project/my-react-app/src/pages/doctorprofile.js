@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProfileIcon from '../components/img/Profile.png';
 import { useAuth } from '../components/session/AuthContext';
 import { auth, db } from '../firebase';
-import {sendEmailVerification,updateEmail, getAuth} from 'firebase/auth';
+import {getAuth} from 'firebase/auth';
 // import {getAuth, onAuthStateChanged} from '../firebase/auth';
 import { collection, query, onSnapshot, doc, getDoc, updateDoc } from "firebase/firestore";
 import { useNavigate } from 'react-router-dom';
@@ -55,18 +55,6 @@ const DoctorProfile =()=>{
         try {
             const auth = getAuth();
             
-            try{ 
-                //await updateEmail(auth.currentUser, userData.mp_email);
-                //await sendEmailVerification()
-            }catch (error) {
-                console.error(`Error code: ${error.code}`);
-                console.error(`Error message: ${error.message}`);
-            }
-            console.log(user.email);// should be old one
-            // if(user.emailVerified){
-            //     console.log("email is verified");
-            // }
-            console.log("hope it works");
             if(userType === "doctor") {
                 const doctorDoc = doc(db, 'Medical Professional', user.uid);
 
@@ -84,7 +72,6 @@ const DoctorProfile =()=>{
                 await updateDoc(doctorDoc, updatedUserData);
             }
 
-            console.log(user.email); // should be new one
             alert("Your information has been updated!")
             navigate('/doctorprofile');
          } catch (error) {
@@ -136,7 +123,7 @@ return(
             <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                 <div><label style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>E-mail</label></div>
-                    <div><input type="email" id="mp_email" name="mp_email" onChange={handleChange} value={userData.mp_email} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
+                    <div><input type="email" id="mp_email" name="mp_email" value={userData.mp_email} required readonly style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label htmlFor="mp_city" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>City</label></div>

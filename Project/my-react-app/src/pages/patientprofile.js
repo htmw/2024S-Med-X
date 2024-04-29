@@ -54,18 +54,6 @@ const PatientProfile =()=>{
         try {
             const auth = getAuth();
             
-            try{ 
-                await updateEmail(auth.currentUser, userData.p_email);
-                //await sendEmailVerification()
-            }catch (error) {
-                console.error(`Error code: ${error.code}`);
-                console.error(`Error message: ${error.message}`);
-            }
-            console.log(user.email);// should be old one
-            // if(user.emailVerified){
-            //     console.log("email is verified");
-            // }
-            console.log("hope it works");
             if(userType == "patient") {
                 const patientDoc = doc(db, 'Patient', user.uid);
                 const updatedUserData = {
@@ -80,7 +68,6 @@ const PatientProfile =()=>{
                 }
                 await updateDoc(patientDoc, updatedUserData);
             }
-            console.log(user.email); // should be new one
             alert("Your information has been updated!")
             navigate('/patientprofile');
          } catch (error) {
@@ -133,7 +120,7 @@ return(
             <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                 <div><label style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>E-mail</label></div>
-                    <div><input type="email" id="p_email" name="p_email" onChange={handleChange} value={userData.p_email} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
+                    <div><input type="email" id="p_email" name="p_email" value={userData.p_email} required readonly style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label htmlFor="p_city_state" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>City</label></div>
