@@ -14,7 +14,7 @@ const DoctorProfile =()=>{
         mp_b_date: '',
         mp_sex: '',
         mp_number: '',
-        mp_email: '',
+        // mp_email: '',
         mp_state: '',
         mp_city: '',
         mp_zip: '',
@@ -60,7 +60,7 @@ const DoctorProfile =()=>{
 
                 const updatedUserData = { // should I do this updatedUserData for patientprofile as well? 
                     mp_name: userData.mp_name || '', // if they didn't put anything, it stays blank
-                    mp_email: userData.mp_email || '',
+                    // mp_email: userData.mp_email || '',
                     mp_b_date: userData.mp_b_date || '',
                     mp_sex: userData.mp_sex || '',
                     mp_number: userData.mp_number || '',
@@ -122,25 +122,19 @@ return(
             </div>
             <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
-                <div><label style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>E-mail</label></div>
-                    <div><input type="email" id="mp_email" name="mp_email" value={userData.mp_email} required readonly style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
-                </div>
-                <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label htmlFor="mp_city" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>City</label></div>
                     <div><input type="text" id="mp_city_state" name="mp_city" onChange={handleChange} value={userData.mp_city} placeholder="New York, NY" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
-            </div>
-            <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label htmlFor="mp_city_state" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>State</label></div>
                     <div><input type="text" id="mp_state" name="mp_state" onChange={handleChange} value={userData.mp_state} placeholder="New York, NY" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
                 </div>
-                <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
-                    <div><label htmlFor="mp_zip" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Zip Code</label></div>
-                    <div><input type="text" id="mp_zip" name="mp_zip" onChange={handleChange} value={userData.mp_zip} pattern="[0-9]{5}" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
-                </div>
             </div>
             <div style={{alignSelf: 'stretch', justifyContent: 'flex-start', alignItems: 'center', gap: 20, display: 'inline-flex'}}>
+                <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
+                    <div><label htmlFor="mp_zip" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Zip Code</label></div>
+                    <div><input type="text" id="mp_zip" name="mp_zip" onChange={handleChange} value={userData.mp_zip} pattern="[0-9]{5}" placeholder="12345" required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}></input></div>
+                </div>
                 <div style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', gap: 20, display: 'inline-flex'}}>
                     <div><label htmlFor="mp_prof" style={{color: 'white', fontSize: 16, fontFamily: 'Inter', fontWeight: '400', wordWrap: 'break-word'}}>Specialty</label></div>
                     <div><select id="mp_prof" name="mp_prof" onChange={handleChange} value={userData.prof} required style={{width: 300, height: 50, padding: 10, background: 'white', borderRadius: 15}}>
