@@ -63,7 +63,7 @@ const ReportGallery = () => {
         // Handle click event, for example, navigate to a detail page
         //const reportId = report;
         //navigate(`/reportdetails/${report.id}/${report.data.medical_term}`);
-        
+
         navigate(`/reportdetails/${report}`);
     };
 
@@ -96,7 +96,7 @@ const ReportGallery = () => {
                             </div>
                         </div>
                     </div>
-                    
+
                 ))}
             </div>
             {/* Pagination controls */}

@@ -10,16 +10,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Timestamp } from "firebase/firestore";
 const ReportPage = () => {
     const { reportId } = useParams();
-    const { user,userType } = useAuth();
+    const { user, userType } = useAuth();
     const [report, setReport] = useState(null);
     const navigate = useNavigate(); // Get the navigate function
 
     const xrayRef = collection(db, "X-ray");
     const currentDate = new Date();
-  
+
     // Create a Firestore Timestamp object from the current date
     const formattedDate = Timestamp.fromDate(currentDate);
-  
+
     const [refreshKey, setRefreshKey] = useState(0);
     const [comment, setComment] = useState("");
     useEffect(() => {
@@ -71,7 +71,7 @@ const ReportPage = () => {
 
         //update specific record's field
         const testData = doc(xrayRef, reportId); //pass here X-ray report id from report page
-        await updateDoc(testData, { mp_comment: comment, status: "1",mp_review_date: formattedDate,mp_id:user.uid});
+        await updateDoc(testData, { mp_comment: comment, status: "1", mp_review_date: formattedDate, mp_id: user.uid });
         navigate("/");
     };
 

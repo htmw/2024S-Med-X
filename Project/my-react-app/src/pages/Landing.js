@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import Logo from '../components/img/Logo.png';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from '../components/session/AuthContext'; // Import useAuth hook
-import Devider from  '../components/img/image 3.png'
+import Devider from '../components/img/image 3.png'
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import Doctor from '../components/img/doctor il.png'
 import Patient from '../components/img/patient il.png'
 import { useNavigate } from 'react-router-dom';
@@ -12,16 +12,19 @@ const Landing = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-      const user = JSON.parse(localStorage.getItem('user'));
-      const userType = localStorage.getItem('userType');
-      if (user && userType) {
-        setUser(user);
-        setUserType(userType);
-        navigate('/', { replace: true });
-      }
-    }, []); 
+    const user = JSON.parse(localStorage.getItem('user'));
+    const userType = localStorage.getItem('userType');
+    if (user && userType) {
+      setUser(user);
+      setUserType(userType);
+      navigate('/', { replace: true });
+    }
+  }, []);
   const signInAsPatient = () => {
     navigate('/patientlogin')
+  };
+  const signInAsDoctor = () => {
+    navigate('/doctorlogin')
   };
 
   return (
@@ -34,7 +37,7 @@ const Landing = () => {
       </div>
       <div className="Content self-stretch h-96  flex-col justify-center items-center gap-5 flex">
         <div className="Select self-stretch justify-between items-center inline-flex">
-          <div className="Doctor grow shrink basis-0 self-stretch px-5 py-2.5 flex-col justify-center items-center gap-2.5 inline-flex" >
+          <div className="Doctor grow shrink basis-0 self-stretch px-5 py-2.5 flex-col justify-center items-center gap-2.5 inline-flex" onClick={signInAsDoctor}>
             <img className="Image2 w-48 h-72" src={Doctor} alt="Doctor" />
             <div className="Doctor text-white text-4xl font-normal font-['Inter']">Doctor</div>
           </div>
@@ -50,5 +53,4 @@ const Landing = () => {
     </div>
   );
 };
-
 export default Landing;

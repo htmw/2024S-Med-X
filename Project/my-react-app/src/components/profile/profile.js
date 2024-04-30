@@ -40,10 +40,15 @@ const Profile = () => {
             });
     };
 
-    // const handleProfileClick = () => {
-    //     console.log("moved successfully");
-    //     navigate('/patientprofile');
-    // };
+    const handleProfileClick = () => {
+        if (userType === "patient") {
+            console.log("moved successfully");
+        navigate('/patientprofile');
+        }
+        else {
+            navigate('/doctorprofile'); 
+        }
+    };
 
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
@@ -111,6 +116,11 @@ const Profile = () => {
                                 Profile
                             </button>
                         </li> */}
+                        <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
+                            <button className="LogoutButton text-white text-lg bg-red-600 px-4 py-2 rounded-md" onClick={handleProfileClick}>
+                                Profile
+                            </button>
+                        </li>
                         <li className="py-2 px-4 hover:bg-secondary rounded-lg text-white">
                             <button className="LogoutButton text-white text-lg bg-red-600 px-4 py-2 rounded-md" onClick={handleLogout}>
                                 Logout

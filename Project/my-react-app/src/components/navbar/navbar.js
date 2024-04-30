@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Logo from '../img/Logo.png';
 import Medexericon from "../img/icons/medex-w";
-
 import { MdDashboard } from "react-icons/md";
 import { TbReportMedical } from "react-icons/tb";
 import { MdPeople } from "react-icons/md";
@@ -12,7 +11,6 @@ const Navbar = () => {// Access user from AuthContext
     const [isDashboardActive, setIsDashboardActive] = useState(true);
     const [isMedexerActive, setIsMedexerActive] = useState(false);
     const [isReportActive, setIsReportActive] = useState(false);
-    const [isPatientActive, setIsPatientActive] = useState(false);
     //const [isReportdActive, setIsReportdActive] = useState(false);
     //const [isImagesActive, setIsImagesActive] = useState(false);
     //const [isAPItestActive, setIsAPItestActive] = useState(false);
@@ -44,7 +42,6 @@ const Navbar = () => {// Access user from AuthContext
                                         setIsDashboardActive(true);
                                         setIsMedexerActive(false);
                                         setIsReportActive(false);
-                                        setIsPatientActive(false);
                                        // setIsReportdActive(false);
                                        //setIsImagesActive(false);
                                         //setIsAPItestActive(false);
@@ -59,13 +56,12 @@ const Navbar = () => {// Access user from AuthContext
                             </div>
                             <div>
                                 <NavLink
-                                    to="medexer"
+                                    to="/medexer"
                                     className={isMedexerActive ? activeClassName : normalLink}
                                     onClick={() => {
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(true);
                                         setIsReportActive(false);
-                                        setIsPatientActive(false);
                                         //setIsReportdActive(false);
                                         //setIsImagesActive(false);
                                         //setIsAPItestActive(false);
@@ -85,32 +81,11 @@ const Navbar = () => {// Access user from AuthContext
                                         setIsDashboardActive(false);
                                         setIsMedexerActive(false);
                                         setIsReportActive(true);
-                                        setIsPatientActive(false);
                                         //setIsReportdActive(false);
                                         //setIsImagesActive(false);
                                         //setIsAPItestActive(false);
                                     }}
                                 >Report</NavLink>
-                            </div>
-                        </div>
-                        <div className="w-fit justify-start items-center gap-3 inline-flex">
-                            <div className="w-[20px] h-[20px] ">
-                                <MdPeople className={`${isPatientActive ? activeClassName : normalLink} w-[20px] h-[20px]`} />
-
-                            </div>
-                            <div>
-                                <NavLink
-                                    to="/patientprofile"
-                                    className={isPatientActive ? activeClassName : normalLink} onClick={() => {
-                                        setIsDashboardActive(false);
-                                        setIsMedexerActive(false);
-                                        setIsReportActive(false);
-                                        setIsPatientActive(true);
-                                        //setIsReportdActive(false);
-                                        //setIsImagesActive(false);
-                                        //setIsAPItestActive(false);
-                                    }}
-                                >Profile</NavLink>
                             </div>
                         </div>
                         {/* <div className="w-fit justify-start items-center gap-3 inline-flex">
