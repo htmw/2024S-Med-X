@@ -59,7 +59,7 @@ return(
         <div className='image-container'>
             <div><img src={ProfileIcon} alt="profile image" style={{width: 100, height: 100, background: '#D9D9D9', borderRadius: 100}}/></div>
             <br/>
-            <div><button className="button_plus hover:bg-green-400" style={{width: '35px', height: '35px', textAlign: 'center',color:'#fff',border: '2px solid #095776',cursor:'pointer'}}
+            <div><button className="button_plus hover:bg-green-400" style={{width: '35px', height: '35px', textAlign: 'center',cologitr:'#fff',border: '2px solid #095776',cursor:'pointer'}}
             onClick={openFileDialog}>+</button></div>
             <label style={{color:'white',fontFamily: 'Inter', fontWeight:'500'}}>Update Profile pic</label>    
         </div>
