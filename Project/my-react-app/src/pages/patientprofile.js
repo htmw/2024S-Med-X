@@ -1,18 +1,102 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ProfileIcon from '../components/img/Profile.png';
-import { db } from '../firebase'; // Import your Firebase configuration
+import { auth, db } from '../firebase'; // Import your Firebase configuration
 import { collection, getDocs } from 'firebase/firestore';
+import {sendEmailVerification,updateEmail, getAuth} from 'firebase/auth';
 import { storage } from "../firebase.js";
 import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
+import { collection, query, onSnapshot, doc, getDoc, updateDoc } from "firebase/firestore";
+import { useNavigate } from 'react-router-dom';
 import Uploadimg from "../components/img/upload.png";
 
 
 const PatientProfile =()=>{
+    const navigate = useNavigate();
+    const { userType, user } = useAuth();
+    const [userData, setUserData] = useState({
+        p_b_date: '',
+        p_sex: '',
+        p_number: '',
+        p_email: '',
+        p_city: "",
+        p_state: '',
+        p_zip: '',
+        p_name:''
+    });
+
     const [fileData, setFileData] = useState({ previewFile: null, errorMessage: '' });
     const fileInputRef = useRef(null);
     const [isDraggingOver, setIsDraggingOver] = useState(false);
     const [uploadedImage, setUploadedImage] = useState(null)
+
+    useEffect(() => {
+        if (user) {
+            const fetchData = async () => { //async makes function return promise
+                try {
+                    let userData;
+                    if (userType === "patient") {
+                        const patientDoc = doc(db, 'Patient', user.uid);
+                        const patientSnap = await getDoc(patientDoc); //await makes async function wait for a promise
+                        userData = patientSnap.data();
+                        setUserData(userData); //gets current data in Firebase, so it shows on the page.
+                    } 
+                } catch (error) {
+                    console.error("Error fetching user data:", error);
+                }
+            };
+
+            fetchData();
+        }
+    }, [user, userType]);
+
+    const handleChange = (event) => { //allows you to update values
+        const {name, value} = event.target; //from input/select, etc.
+        setUserData((pastUserData) => ({
+            ...pastUserData, ///spread operator. this is userData before we update the value in the form
+            [name]:value,
+        }));
+    };
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const auth = getAuth();
+            
+            try{ 
+                await updateEmail(auth.currentUser, userData.p_email);
+                //await sendEmailVerification()
+            }catch (error) {
+                console.error(`Error code: ${error.code}`);
+                console.error(`Error message: ${error.message}`);
+            }
+            console.log(user.email);// should be old one
+            // if(user.emailVerified){
+            //     console.log("email is verified");
+            // }
+            console.log("hope it works");
+            if(userType == "patient") {
+                const patientDoc = doc(db, 'Patient', user.uid);
+                const updatedUserData = {
+                    p_name: userData.p_name || '',
+                    p_email: userData.p_email || '',
+                    p_b_date: userData.p_b_date || '',
+                    p_sex: userData.p_sex || '',
+                    p_number: userData.p_number || '',
+                    p_city: userData.p_city || '',
+                    p_state: userData.p_state || '',
+                    p_zip: userData.p_zip || ''
+                }
+                await updateDoc(patientDoc, updatedUserData);
+            }
+            console.log(user.email); // should be new one
+            alert("Your information has been updated!")
+            navigate('/patientprofile');
+         } catch (error) {
+            console.error(`Error code: ${error.code}`);
+            console.error(`Error message: ${error.message}`);
+        }
+    };
+
 
     const openFileDialog = () => {
        fileInputRef.current.click();
